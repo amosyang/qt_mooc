@@ -1,0 +1,716 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>1.2 字符串处理和值类型 - Qt系列教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Qt系列教程" class="md-header-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Qt系列教程
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              1.2 字符串处理和值类型
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Qt系列教程" class="md-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Qt系列教程
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Introduce/" class="md-nav__link">
+      课程介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_1/" class="md-nav__link">
+      1.1 创建和调试Qt项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      1.2 字符串处理和值类型
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_3/" class="md-nav__link">
+      1.3 容器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_1/" class="md-nav__link">
+      2.1 值对象与QObject
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_2/" class="md-nav__link">
+      2.2 对象通信：信号和槽
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_3/" class="md-nav__link">
+      2.3 多任务处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_4/" class="md-nav__link">
+      2.4 父子关系
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_1/" class="md-nav__link">
+      3.1 QML介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_2/" class="md-nav__link">
+      3.2 QML类型和属性
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_3/" class="md-nav__link">
+      3.3 QML基本类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_4/" class="md-nav__link">
+      3.4 文本输入与按键处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_5/" class="md-nav__link">
+      3.5 鼠标处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_6/" class="md-nav__link">
+      3.6 输入处理器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_7/" class="md-nav__link">
+      3.7 定位器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_8/" class="md-nav__link">
+      3.8 锚定布局
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_9/" class="md-nav__link">
+      3.9 Qt Quick Controls
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_10/" class="md-nav__link">
+      3.10 自定义组件
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_11/" class="md-nav__link">
+      3.11 视觉效果
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_1/" class="md-nav__link">
+      4.1 模型视图框架
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_2/" class="md-nav__link">
+      4.2 QML模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_3/" class="md-nav__link">
+      4.3 视图
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_4/" class="md-nav__link">
+      4.4 委托
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_1/" class="md-nav__link">
+      5.1 QML上下文属性和对象
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_2/" class="md-nav__link">
+      5.2 从QML访问C++
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_3/" class="md-nav__link">
+      5.3 创建新的QML类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_4/" class="md-nav__link">
+      5.4 QML中的C++模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_5/" class="md-nav__link">
+      5.5 场景图项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_6/" class="md-nav__link">
+      5.6 QML分析器
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1"><center>字符串处理和值类型<center></h1>
+<p>在这一章中，我们将讨论字符串及其操作，并简要讨论Qt中的值与类型。如果您希望了解更具体的技术细节，我们鼓励您查看官方Qt文档。</p>
+<h1 id="1-qchar">1. QChar</h1>
+<p><code>QChar</code>类提供了一个16位的Unicode字符。在Qt中，Unicode字符是没有任何标记或结构的16位实体，这个类表示这样的实体。它是轻量级的，所以可以在任何地方使用。大多数编译器将其视为无符号的short。该类具有许多您期望的方法，例如<code>isNull()</code>和<code>isNumber()</code>。如果您想了解更多的<code>QChar</code>信息，请参阅<a href="https://doc.qt.io/qt-5/qchar.html" title="官方文档">官方文档</a>。</p>
+<h1 id="2-qstring">2. QString</h1>
+<p><code>QString</code>类提供一个Unicode字符串。<code>QString</code>存储一串16位的<code>QChars</code>，每个<code>QChar</code>对应一个Unicode 4.0字符。（编码值大于65535的Unicode字符使用代理对来存储（即两个连续的<code>QChar</code>）。</p>
+<p><code>QString</code>底层使用隐式共享（写时复制）来减少内存使用并避免不必要的数据复制。这也有助于减少存储16位字符而不是8位字符的固有开销。</p>
+<p>除了<code>QString</code>，Qt还提供了<code>QByteArray</code>用于存储原始字节和传统的8位以'\ 0'结尾的字符串的类。大多数情况下您只需要使用<code>QString</code>类。它在整个Qt API中使用，并且对Unicode的支持可以确保您在某种程度上希望扩展应用程序的市场时，您的应用程序将很容易转换。<code>QByteArray</code>适用于两种主要的情况：需要存储原始二进制数据，以及对内存的保护至关重要时（例如在嵌入式系统中）。</p>
+<h1 id="21">2.1 初始化字符串</h1>
+<p>初始化<code>QString</code>的一种方法是简单地将<code>const char *</code>传递给它的构造函数。例如，下面的代码创建了一个大小为5的<code>QString</code>，其中包含数据"Hello":</p>
+<pre><code>QString str = "Hello";
+</code></pre>
+<p>还有其他方法，例如以<code>QChar</code>数组的形式提供字符串。</p>
+<p>另一种方法是使用<code>resize()</code>设置字符串的大小，并使用<code>[]</code>运算符来初始化每个字符，例如<code>str[2] = QChar('A')</code>。调用<code>resize()</code>函数后，新分配的字符具有未定义的值。要将字符串中的所有字符设置为特定值，请使用<code>fill()</code>函数。</p>
+<p>对于只读访问，另一种语法是使用<code>at()</code>函数。该<code>at()</code>函数比<code>operator[]()</code>更快，因为它永远不会导致深拷贝的出现。</p>
+<p>为了简化字符串的使用<code>QString</code>提供了几十种重载方法。例如，如果您想将QString与字符串文字进行比较，则可以编写如下代码，它将按预期工作：</p>
+<pre><code>QString str;
+if (str == "auto" || str == "extern" || str == "static" || str == "register") {
+    // ...
+}
+</code></pre>
+<p>您还可以通过调用<code>QString(const char *)</code>构造函数，将字符串文本传递给以<code>QString</code>作为参数的函数。</p>
+<h1 id="22">2.2 处理字符串数据</h1>
+<p><code>QString</code>提供下列基本功能用于修改字符数据：<code>append()</code>，<code>prepend()</code>，<code>insert()</code>，<code>replace()</code>，和<code>remove()</code>。例如：</p>
+<pre><code>QString str = "and";
+str.prepend("rock "); // str == "rock and"
+str.append(" roll"); // str == "rock and roll"
+str.replace(5, 3, "&amp;"); // str == "rock &amp; roll"
+</code></pre>
+<p>如果您逐步构建<code>QString</code>时知道它将包含多少个字符，则可以调用<code>reserve()</code>，它会为<code>QString</code>预先分配一定数量的内存。您也可以调用<code>capacity()</code>获取<code>QString</code>实际分配了多少内存。</p>
+<p>一个常见的需求是从字符串中删除空白字符。如果希望从<code>QString</code>的两端删除空格，可以使用<code>trimmed()</code>函数。如果希望删除两端的空格，并将字符串中的多个连续空格替换为单个空格字符，请使用<code>simplified()</code>。</p>
+<p><code>indexOf()</code>和<code>lastIndexOf()</code>函数返回它们找到的字符或子字符串的第一个索引位置，前者是从前往后查找，而后者从后往前查找; 如果未找到，则返回-1。</p>
+<p>字符串列表由<code>QStringList</code>类处理。您可以使用<code>split()</code>函数将字符串拆分为字符串列表，也可以使用分隔符将字符串列表合并为单个字符串<code>QStringList::join()</code>。您还可以使用<code>QStringList::join()</code>函数从包含特定子字符串或匹配特定<code>QRegExp</code>的字符串列表中获取字符串列表。</p>
+<h1 id="23">2.3 转换</h1>
+<p><code>QString</code>提供了以下三个函数：<code>toUtf8()</code>，<code>toLatin1()</code>，和<code>toLocal8Bit()</code>，它们返回一个<code>const char *</code>版本的字符串即<code>QByteArray</code>。相应的，从这些编码转换是<code>fromLatin1()</code>，<code>fromUtf8()</code>和<code>fromLocal8Bit()</code>。另外，<code>QTextCodec</code>类支持其他编码。</p>
+<h1 id="24-qtextcodec">2.4 QTextCodec</h1>
+<p>Qt使用Unicode来存储、绘制和操作字符串。在许多情况下，您可能希望处理使用不同编码的数据。例如，大多数日本文档仍然存储在Shift-JIS或ISO 2022-JP中，而俄罗斯用户通常将文档存储在KOI8-R或Windows-1251中。<code>QTextCodec</code>类可以提供文本编码之间的转换。我们不会在本课程中介绍不同的编码，但是如果您有兴趣学习它，请访问<a href="http://doc.qt.io/qt-5/qtextcodec.html" title="QTextCodec文档">QTextCodec文档</a>。</p>
+<h1 id="25-nullempty">2.5 null和empty字符串之间的区别</h1>
+<p>由于历史原因，<code>QString</code>会区分null字符串和empty字符串。null字符串是使用<code>QString</code>的默认构造函数或通过将<code>const char *</code>0传递给构造函数来初始化字符串。empty字符串是大小为0的字符串。因此，null字符串始终为空，但empty字符串不一定为空（例如<code>QString()</code>，既等于null又等于empty，<code>QString("")</code>等于empty，但不等于null）。</p>
+<p>除了<code>isNull()</code>之外，所有函数都将empty字符串视为null字符串。例如，<code>toUtf8().constData()</code>为空字符串返回一个指向'\ 0'字符的指针（不是空指针），<code>QString()</code>等于<code>QString("")</code>。我们建议您始终使用<code>isEmpty()</code>函数并避免使用<code>isNull()</code>。</p>
+<h1 id="26">2.6 高效的字符串构造函数</h1>
+<p>许多字符串在编译时是已知的。但是普通构造函数<code>QString("Hello")</code>将复制字符串的内容，并将内容作为Latin-1处理。为了避免这种情况，可以使用<code>QStringLiteral</code>宏在编译时直接创建所需的数据。从文本中构造<code>QString</code>在运行时不会造成任何开销。</p>
+<p>另一种效率稍低的方法是使用<code>QLatin1String</code>。这个类包装了一个C语言的字符串文本，在编译时预先计算它的长度，然后使用它可以比普通的C语言字符串文本更快地与<code>QString</code>进行比较并转换成<code>QString</code>。</p>
+<p>使用<code>QString</code>的'+'运算符，可以很容易地从多个子字符串构造一个复杂的字符串。您可能经常编写如下代码：</p>
+<pre><code>QString foo;
+QString type = "long";
+
+foo-&gt;setText(QLatin1String("vector&lt;") + type + QLatin1String("&gt;::iterator"));
+
+if (foo.startsWith("(" + type + ") 0x"))
+    ...
+</code></pre>
+<p>这两种字符串构造都没有错误，但是存在效率低下的问题。</p>
+<p>首先，多次使用'+'运算符通常意味着要多次分配内存。当串联n个子字符串（其中n&gt;2）时，最多会有n-1个对内存分配器的调用。</p>
+<p>内部模板类<code>QStringBuilder</code>可以与一些辅助函数一起使用。此类被标记为内部类，因此未出现在文档中，因为您无需在代码中实例化该类。如下所述，它会被自动使用。如果要查看该类，可以在<code>src/corelib/tools/qstringbuilder.cpp</code>中找到。</p>
+<p><code>QStringBuilder</code>使用表达式模板并重新实现了'%'操作符，这样当您使用'%'进行字符串连接而不是'+'时，多个子字符串连接将被推迟，直到将最终结果分配给一个<code>QString</code>。此时，最终结果所需的内存量已经知道了。然后调用内存分配器以获得所需的空间，然后将子字符串一个接一个地复制到内存分配器中。</p>
+<p>可以有两种方法访问这个改进的字符串构造方法。最直接的方法是在任何您想使用的地方包含<code>QStringBuilder</code>，并在连接字符串时使用'％'运算符而不是'+'：</p>
+<pre><code>#include &lt;QStringBuilder&gt;
+
+QString hello("hello");
+QStringRef el(&amp;hello, 2, 3);
+QLatin1String world("world");
+QString message =  hello % el % world % QChar('!');
+</code></pre>
+<p>一个更方便的是使用全局方法，但它不完全与源代码兼容，是在你的<code>.pro</code>文件中定义:</p>
+<pre><code>DEFINES *= QT_USE_QSTRINGBUILDER
+</code></pre>
+<p>然后'+'将在所有地方自动作为<code>QStringBuilder</code>的'％'执行。</p>
+<p>在本练习中，您将实现几个字符串处理的函数。您将在练习模板的<code>strings.cpp</code>文件中找到练习说明。</p>
+<h1 id="3-qbytearray">3. QByteArray</h1>
+<p><a href="http://doc.qt.io/qt-5/qbytearray.html" title="QByteArray"><code>QByteArray</code></a>类提供了一个字节数组。</p>
+<p><code>QByteArray</code>用于存储原始字节和传统的8位以'<code>\0</code>'结尾的字符串。使用<code>QByteArray</code>通常比使用<code>const char *</code>方便的多。在底层它始终确保数据后面带有'<code>\0</code>'结束符，并使用隐式共享（写时复制）来减少内存使用并避免不必要的数据复制。</p>
+<p>初始化<code>QByteArray</code>的一种方法是简单地将<code>const char *</code>传递给它的构造函数。例如，以下代码创建一个大小为5的字节数组，其中包含数据"Hello"：</p>
+<pre><code>QByteArray ba("Hello");
+</code></pre>
+<p>尽管<code>size()</code>字节数为5，但字节数组最后还保留了一个额外的'<code>\0</code>'字符，因此，如果使用的函数要求指向原始数据（例如，对<code>data()</code>的调用），则保证所指向的数据为'<code>\0</code>'时结束。</p>
+<p><code>QByteArray</code>可以嵌入字节'<code>\0</code>'。<code>size()</code>函数始终返回整个数组的大小，包括嵌入的' <code>\0</code>'字节，但不包括<code>QByteArray</code>添加的结束符<code>\0</code>。如果您想获得到第一个<code>\0</code>字符数据的长度，可以使用<code>qstrlen()</code>。</p>
+<p>与<code>QString</code>一样，您还可以使用<code>resize()</code>设置数组的大小，然后使用<code>operator[]()</code>初始化每个字节的数据。</p>
+<p>要获取指向实际字符数据的指针，请调用<code>data()</code>或<code>constData()</code>。这些函数返回一个指向数据开头的指针。在<code>QByteArray</code>上调用非const函数之前，该指针保持有效。</p>
+<p><code>QByteArray</code>提供了与<code>QString</code>相同的用于修改和搜索字节数据的函数，如<code>append()</code>和<code>indexOf()</code>。</p>
+<p>执行数值数据类型和字符串之间转换的函数在C语言环境中执行，与用户的语言环境设置无关。使用<code>QString</code>在数字和字符串之间执行可识别语言环境的转换。</p>
+<p>在<code>QByteArray</code>中，大写和小写以及哪个字符大于或小于另一个字符的概念取决于语言环境。这将影响支持不区分大小写选项的函数、比较函数或其参数的小写或大写。如果两个字符串都仅包含ASCII字符，则不区分大小写的操作和比较将是准确的。（如果设置了$LC_CTYPE，则大多数Unix系统都会做“正确的事”。）这个问题不适用于<code>QString</code>，因为它们使用Unicode表示字符。</p>
+<p>在本练习中，您需要对字节有所考虑。您可以像往常一样在模板的文件中找到练习的说明<code>bytes.cpp</code>。</p>
+<h1 id="4-vs">4. 值类型vs标识类型</h1>
+<p>让我们简短地谈谈Qt中的值与标识类型。本章讨论的所有对象（例如<code>QString</code>）都是值类型，表示可以复制它们。在本课程的稍后部分，我们将介绍<code>Qt Objects</code>标识类型。这里的不同之处在于，在赋值和复制值的地方，克隆的是标识类型。克隆意味着创建一个新的标识类型，而不是旧标识类型的精确副本。如果您想进一步了解其背后的原因，<a href="https://doc.qt.io/qt-5/object.html" title="请参阅文档">请参阅文档</a>。</p>
+<h1 id="41-qvariant">4.1 QVariant</h1>
+<p>在本课程的稍后部分，我们将使用<code>QVariant</code>，因此我们将在这里简要讨论。</p>
+<p><code>QVariant</code>类充当最常见Qt数据类型(特别是值类型)的联合。因为C++禁止union包含具有非默认构造函数或析构函数的类型，所以大多数有趣的Qt类都不能在union中使用。<code>QVariant</code>解决了这个问题。</p>
+<p><code>QVariant</code>对象每次保存单个<code>type()</code>的单个值。（有些<code>type()</code>是多值的，例如一个字符串列表。）您可以找出该变量持有的类型<code>T</code>，使用<code>convert()</code>将该变量转换为其他类型，使用其中一个<code>toT()</code>函数（例如<code>toSize()</code>）获取其值，使用<code>canConvert()</code>检查是否可以使用将类型转换为特定类型。有关更多详细信息，请参见<a href="https://doc.qt.io/qt-5/qvariant.html" title="QVariant文档">QVariant文档</a>。</p>
+<p><a href="https://materiaalit.github.io/qt-mooc/part1/">Source</a></p>
+<h1 id="_2">更多资料，请关注本人公众号：<strong>程序员练兵场</strong></h1>
+<p><img alt="在这里插入图片描述" src="../img/%E5%85%AC%E4%BC%97%E5%8F%B7.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Qt_MOOC_Part_1_1/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                1.1 创建和调试Qt项目
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Qt_MOOC_Part_1_3/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                1.3 容器
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

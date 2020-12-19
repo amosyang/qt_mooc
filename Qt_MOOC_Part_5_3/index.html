@@ -1,0 +1,941 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>5.3 创建新的QML类型 - Qt系列教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#qml" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Qt系列教程" class="md-header-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Qt系列教程
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              5.3 创建新的QML类型
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Qt系列教程" class="md-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Qt系列教程
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Introduce/" class="md-nav__link">
+      课程介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_1/" class="md-nav__link">
+      1.1 创建和调试Qt项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_2/" class="md-nav__link">
+      1.2 字符串处理和值类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_3/" class="md-nav__link">
+      1.3 容器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_1/" class="md-nav__link">
+      2.1 值对象与QObject
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_2/" class="md-nav__link">
+      2.2 对象通信：信号和槽
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_3/" class="md-nav__link">
+      2.3 多任务处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_4/" class="md-nav__link">
+      2.4 父子关系
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_1/" class="md-nav__link">
+      3.1 QML介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_2/" class="md-nav__link">
+      3.2 QML类型和属性
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_3/" class="md-nav__link">
+      3.3 QML基本类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_4/" class="md-nav__link">
+      3.4 文本输入与按键处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_5/" class="md-nav__link">
+      3.5 鼠标处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_6/" class="md-nav__link">
+      3.6 输入处理器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_7/" class="md-nav__link">
+      3.7 定位器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_8/" class="md-nav__link">
+      3.8 锚定布局
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_9/" class="md-nav__link">
+      3.9 Qt Quick Controls
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_10/" class="md-nav__link">
+      3.10 自定义组件
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_11/" class="md-nav__link">
+      3.11 视觉效果
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_1/" class="md-nav__link">
+      4.1 模型视图框架
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_2/" class="md-nav__link">
+      4.2 QML模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_3/" class="md-nav__link">
+      4.3 视图
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_4/" class="md-nav__link">
+      4.4 委托
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_1/" class="md-nav__link">
+      5.1 QML上下文属性和对象
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_2/" class="md-nav__link">
+      5.2 从QML访问C++
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      5.3 创建新的QML类型
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_4/" class="md-nav__link">
+      5.4 QML中的C++模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_5/" class="md-nav__link">
+      5.5 场景图项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_6/" class="md-nav__link">
+      5.6 QML分析器
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="qml"><center>创建新的QML类型<center></h1>
+<p>到目前为止，我们已经讨论了如何将对象实例公开给QML上下文。有时我们还希望在QML中可以使用注册类本身。注册允许将类当作QML中的数据类型来使用。此外，注册还可以提供其他功能，比如允许在QML中将类用作可实例化的QML对象类型，或者允许在QML中导入和使用类的单例实例。</p>
+<p>通常我们使用<code>Q_OBJECT</code>宏注册从<code>QObject</code>派生的类，也可以用<code>Q_GADGET</code>宏声明一个比<code>QObject</code>“更轻”的版本。在这些更轻的类中，我们可以访问它们的属性、枚举和可调用的方法，但不能使用信号槽系统，我们稍后会进行介绍。</p>
+<h1 id="1">1. 注册</h1>
+<h2 id="11">1.1 注册实例化类型</h2>
+<p>要将<code>QObject</code>派生的类注册为可实例化的QML对象类型，请调用<code>qmlRegisterType()</code>将类作为QML类型注册到特定的类型名称空间中。然后，客户端可以导入该名称空间以使用该类型。</p>
+<p>假设有一个带有<code>author</code>和<code>creationDate</code>属性的<code>Message</code>类：</p>
+<pre><code>class Message : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(QString author READ author WRITE setAuthor NOTIFY authorChanged)
+    Q_PROPERTY(QDateTime creationDate READ creationDate WRITE setCreationDate NOTIFY creationDateChanged)
+public:
+    // ...
+};
+</code></pre>
+<p>可以通过使用合适的类型名称空间和版本号调用<code>qmlRegisterType()</code>来注册此类型。比如使该类型在<code>com.mycompany.messaging</code>版本1.0的名称空间中可用：</p>
+<pre><code>qmlRegisterType&lt;Message&gt;("com.mycompany.messaging", 1, 0, "Message");
+</code></pre>
+<p>然后在QML的对象声明中可以使用该类型，并且可以按以下示例读取和写入其属性：</p>
+<pre><code>import com.mycompany.messaging 1.0
+
+Message {
+    author: "Amelie"
+    creationDate: new Date()
+}
+</code></pre>
+<h2 id="12">1.2 注册非实例化类型</h2>
+<p>有时，可能需要向QML类型系统注册<code>QObject</code>派生类时不希望将其注册为可实例化类型。比如一个C++类：</p>
+<ul>
+<li>是不应实例化的接口类型</li>
+<li>是不需要暴露给QML的基类类型</li>
+<li>声明一些能从QML访问的枚举，但自己不应该被实例化</li>
+<li>一个应该通过单例实例提供给QML的类型，并且不应该从QML实例化</li>
+</ul>
+<p>Qt QML模块提供了几种注册非实例化类型的方法：</p>
+<ul>
+<li><code>qmlRegisterType()</code>（不带参数）注册一个不可实例化且无法从QML引用的C++类型。这使引擎能够强制执行可从QML实例化的所有继承类型。</li>
+<li><code>qmlRegisterInterface()</code>使用特定的QML类型名称注册Qt的接口类型。类型不能从QML实例化，但可以通过其类型名引用。</li>
+<li><code>qmlRegisterUncreatableType()</code>注册一个C++类型，该类型不可实例化，但应可识别为QML类型系统的类型。如果类型的枚举或附加属性应该可以从QML访问，但是类型本身不应该是可实例化的，那么这很有用。</li>
+<li><code>qmlRegisterSingletonType()</code> 注册可以从QML导入的单例类型。</li>
+</ul>
+<p>下面我们讨论一下单例类型。</p>
+<p><code>QObject</code>单例类型可以与任何其他<code>QObject</code>或实例化类型进行交互，但只有一个实例存在，而且必须通过类型名称而不是id进行引用。<code>QObject</code>单例类型的<code>Q_PROPERTY</code>可以用于属性绑定，<code>QObject</code>模块API的<code>Q_INVOKABLE</code>函数可以用于信号处理器表达式。这使得单例类型成为实现样式化或主题化的理想方式。</p>
+<p>假设我们有一个用于主题的单例类型，它已注册到<code>MyThemeModule</code>1.0版本的名称空间中，其中<code>QObject</code>具有一个<code>QColor color</code>属性。然后我们可以简单地使用它：</p>
+<pre><code>import MyThemeModule 1.0 as Theme
+
+Rectangle {
+    color: Theme.color // binding.
+}
+</code></pre>
+<p>另一个例子是我们有一个只用于枚举的类。请注意，在这种情况下，我们可以使用前面提到的更轻量级的<code>Q_GADGET</code>宏（因为我们不需要信号和槽）：</p>
+<pre><code>// modeclass.h
+#include &lt;QObject&gt;
+
+class ModeClass
+{
+    Q_GADGET
+public:
+    explicit ModeClass();
+    enum Mode { Slow, Normal, Fast, UsainBolt };
+    Q_ENUM(Mode)
+};
+</code></pre>
+<p>注册：</p>
+<pre><code>qmlRegisterUncreatableType&lt;ModeClass&gt;("com.mycompany.modes", 1, 0, "ModeClass", "Message");
+</code></pre>
+<h1 id="2-qobject">2. 创建自定义QObject</h1>
+<p>让我们通过一个例子来看看如何创建一个自定义的<code>QObject</code>派生类然后在QML中使用：</p>
+<pre><code>// cppperson.h
+class CppPerson : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(int shoeSize READ shoeSize WRITE setShoeSize NOTIFY shoeSizeChanged)
+public:
+    CppPerson(QObject *parent = nullptr);
+
+    QString name() const;
+    void setName(const QString &amp;name);
+
+    int shoeSize() const;
+    void setShoeSize(int size);
+
+signals:
+    void nameChanged();
+    void shoeSizeChanged();
+
+private:
+    QString m_name;
+    int m_shoeSize;
+};
+</code></pre>
+<p><br/>    </p>
+<pre><code>// cppperson.cpp
+#include "cppperson.h"
+
+CppPerson::CppPerson(QObject *parent) :
+    QObject(parent), m_shoeSize(0)
+{
+}
+
+QString CppPerson::name() const
+{
+    return m_name;
+}
+
+void CppPerson::setName(const QString &amp;name)
+{
+    if (m_name != name) {
+        m_name = name;
+        emit nameChanged();
+    }
+}
+
+int CppPerson::shoeSize() const
+{
+    return m_shoeSize;
+}
+
+void CppPerson::setShoeSize(int size)
+{
+    if (m_shoeSize != size) {
+        m_shoeSize = size;
+        emit shoeSizeChanged();
+    }
+}
+</code></pre>
+<p><br/>    </p>
+<pre><code>// main.cpp
+...
+qmlRegisterType&lt;CppPerson&gt;("People", 1,0, "Person");
+...
+</code></pre>
+<p><br/>    </p>
+<pre><code>// main.qml
+import QtQuick 2.9
+import QtQuick.Window 2.3
+import People 1.0
+
+Window {
+    width: 640; height: 480
+    visible: true
+
+    Rectangle {
+        anchors.fill: parent
+
+        // Person is implemented in C++
+        Person {
+            id: person
+            name: "Bob Jones"
+            shoeSize: 12
+            onNameChanged: {
+                console.log("New name: " + name)
+            }
+            onShoeSizeChanged: {
+                console.log("New shoe size: " + shoeSize)
+            }
+        }
+
+        Column {
+            anchors.fill:  parent
+            spacing: 20
+            Text {
+                font.bold: true
+                font.pixelSize: 26
+                text: "Person name: " + person.name
+            }
+            Text {
+                font.bold: true
+                font.pixelSize: 26
+                text: "Person shoe size: " + person.shoeSize
+            }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                person.name = "John Doe"
+                person.shoeSize = 9
+            }
+        }
+    }
+}
+</code></pre>
+<p>C++端现在应该开始变得熟悉，我们使用<code>Q_PROPERTY</code>在头文件中声明了属性及其访问器和信号，并在<code>cppperson.cpp</code>文件中实现了getter和setter。（不要忘记在setter中发出<code>xxxChanged</code>信号！）</p>
+<p>我们在QML里导入已注册的类型，然后就可以像使用其他QML类型一样使用它。属性绑定与通常一样是按名称进行的，信号的槽自动存在，遵循命名约定<code>onXxxChanged</code>。</p>
+<h1 id="3-qstandarditemmodel">3. QStandardItemModel</h1>
+<p>一个常见的需求是在C++中实现一个模型来存储数据，然后在QML中显示。更专业的用例通常要求我们编写自己的模型，例如在下一节中，我们将通过子类化<code>QAbstractTableModel</code>（继承自<code>QAbstractItemModel</code>）来实现我们自己的表格模型。Qt还提供了一个简单的通用模型来存储自定义数据，称为<code>QStandardItemModel</code>。</p>
+<pre><code>// mymodel.h
+#include &lt;QStandardItemModel&gt;
+
+class MyModel : public QStandardItemModel
+{
+    Q_OBJECT
+public:
+    enum Roles {
+        BrandRole = Qt::UserRole + 1,
+        ModelRole
+    };
+
+    explicit MyModel(QObject *parent = nullptr);
+
+    QHash&lt;int, QByteArray&gt; roleNames() const Q_DECL_OVERRIDE;
+
+    Q_INVOKABLE void addCar(const QString &amp;brand, const QString &amp;model);
+};
+</code></pre>
+<p><br/>    </p>
+<pre><code>// mymodel.cpp
+#include "mymodel.h"
+
+MyModel::MyModel(QObject *parent) : QStandardItemModel(parent)
+{
+}
+
+QHash&lt;int, QByteArray&gt; MyModel::roleNames() const
+{
+    QHash&lt;int, QByteArray&gt; mapping = QStandardItemModel::roleNames();
+    mapping[BrandRole] = "brand";
+    mapping[ModelRole] = "model";
+    return mapping;
+}
+
+void MyModel::addCar(const QString &amp;brand, const QString &amp;model)
+{
+    QStandardItem *item = new QStandardItem;
+    item-&gt;setData(brand, BrandRole);
+    item-&gt;setData(model, ModelRole);
+    appendRow(item);
+}
+</code></pre>
+<p>这里要注意的最重要部分是重写的<code>roleNames()</code>函数，其中指定的角色被映射到数字(枚举)。这使得我们能够使用名称“brand”和“model”来引用QML中的数据。</p>
+<p>另外，不要忘记用<code>Q_INVOKABLE</code>声明<code>addCar</code>方法，以允许它可以在QML中使用。</p>
+<pre><code>// main.cpp
+qmlRegisterType&lt;MyModel&gt;("org.mooc.cars", 1, 0, "MyModel");
+</code></pre>
+<p><br/></p>
+<pre><code>// main.qml
+import QtQuick 2.9
+import QtQuick.Window 2.2
+import org.mooc.cars 1.0
+
+Window {
+    visible: true
+    width: 640
+    height: 480
+    title: qsTr("Cars")
+
+    MyModel {
+        id: cars
+    }
+
+    ListView {
+        anchors.fill: parent
+        model: cars
+        delegate: Text {
+            text: "The brand is " + brand + " and the model is " + model
+        }
+    }
+
+    // Some way to populate the model, cars.addCar("brand", "model")
+    ...
+}
+</code></pre>
+<h1 id="4-qml">4. QML插件</h1>
+<p>导入自定义QML组件时，它会首先加载到内存中。为了缩短启动时间，您可以将组件改为插件，在这种情况下，一旦创建了对象，它就会被动态加载。</p>
+<p>要编写QML扩展插件，我们需要：</p>
+<ul>
+<li>子类化<code>QQmlExtensionPlugin</code></li>
+<li>为插件编写一个项目文件</li>
+<li>创建一个<code>qmldir</code>文件描述此插件</li>
+</ul>
+<p>假设我们有一个C++类<code>TimeModel</code>，需要将其作为新的QML类型使用。它提供当前时间<code>hour</code>和<code>minute</code>属性。</p>
+<pre><code>class TimeModel : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(int hour READ hour NOTIFY timeChanged)
+    Q_PROPERTY(int minute READ minute NOTIFY timeChanged)
+    ...
+</code></pre>
+<p>现在，我们创建一个名为<code>QExampleQmlPlugin</code>的类，它继承至<code>QmlExtensionPlugin</code>：</p>
+<pre><code>class QExampleQmlPlugin : public QQmlExtensionPlugin
+{
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
+
+public:
+    void registerTypes(const char *uri) override
+    {
+        Q_ASSERT(uri == QLatin1String("TimeExample"));
+        qmlRegisterType&lt;TimeModel&gt;(uri, 1, 0, "Time");
+    }
+};
+</code></pre>
+<ul>
+<li>我们使用<code>Q_PLUGIN_METADATA()</code>宏将插件注册到具有唯一标识符的元对象系统。</li>
+<li>重写了<code>registerTypes()</code>方法，用<code>qmlRegisterType</code>注册<code>TimeModel</code>类型。</li>
+<li>这里的<code>Q_ASSERT</code>不是必须的，但是我们可以使用它来确保使用此插件的任何QML组件都能正确导入类型名称空间。</li>
+</ul>
+<p>接下来，我们需要一个<code>.pro</code>项目文件：</p>
+<pre><code>TEMPLATE = lib
+CONFIG += qt plugin
+QT += qml
+
+DESTDIR = imports/TimeExample
+TARGET = qmlqtimeexampleplugin
+SOURCES += qexampleqmlplugin.cpp
+</code></pre>
+<p>它将项目定义为插件库，指定构建目录，并注册插件目标名称。</p>
+<p>最后，我们需要一个<code>qmldir</code>文件来描述插件：</p>
+<pre><code>module TimeExample
+plugin qmlqtimeexampleplugin
+</code></pre>
+<p><a href="https://materiaalit.github.io/qt-mooc/part5/">Source</a></p>
+<h1 id="_1">更多资料，请关注本人公众号：<strong>程序员练兵场</strong></h1>
+<p><img alt="在这里插入图片描述" src="../img/%E5%85%AC%E4%BC%97%E5%8F%B7.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Qt_MOOC_Part_5_2/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                5.2 从QML访问C++
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Qt_MOOC_Part_5_4/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                5.4 QML中的C++模型
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
