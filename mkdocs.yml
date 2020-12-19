@@ -1,0 +1,32 @@
+site_name: Qt系列教程
+nav:
+  - 课程介绍: Qt_MOOC_Introduce.md
+  - 1.1 创建和调试Qt项目: Qt_MOOC_Part_1_1.md
+  - 1.2 字符串处理和值类型: Qt_MOOC_Part_1_2.md
+  - 1.3 容器: Qt_MOOC_Part_1_3.md
+  - 2.1 值对象与QObject: Qt_MOOC_Part_2_1.md
+  - 2.2 对象通信：信号和槽: Qt_MOOC_Part_2_2.md
+  - 2.3 多任务处理: Qt_MOOC_Part_2_3.md
+  - 2.4 父子关系: Qt_MOOC_Part_2_4.md
+  - 3.1 QML介绍: Qt_MOOC_Part_3_1.md
+  - 3.2 QML类型和属性: Qt_MOOC_Part_3_2.md
+  - 3.3 QML基本类型: Qt_MOOC_Part_3_3.md
+  - 3.4 文本输入与按键处理: Qt_MOOC_Part_3_4.md
+  - 3.5 鼠标处理: Qt_MOOC_Part_3_5.md
+  - 3.6 输入处理器: Qt_MOOC_Part_3_6.md
+  - 3.7 定位器: Qt_MOOC_Part_3_7.md
+  - 3.8 锚定布局: Qt_MOOC_Part_3_8.md
+  - 3.9 Qt Quick Controls: Qt_MOOC_Part_3_9.md
+  - 3.10 自定义组件: Qt_MOOC_Part_3_10.md
+  - 3.11 视觉效果: Qt_MOOC_Part_3_11.md
+  - 4.1 模型视图框架: Qt_MOOC_Part_4_1.md
+  - 4.2 QML模型: Qt_MOOC_Part_4_2.md
+  - 4.3 视图: Qt_MOOC_Part_4_3.md
+  - 4.4 委托: Qt_MOOC_Part_4_4.md
+  - 5.1 QML上下文属性和对象: Qt_MOOC_Part_5_1.md
+  - 5.2 从QML访问C++: Qt_MOOC_Part_5_2.md
+  - 5.3 创建新的QML类型: Qt_MOOC_Part_5_3.md
+  - 5.4 QML中的C++模型: Qt_MOOC_Part_5_4.md
+  - 5.5 场景图项目: Qt_MOOC_Part_5_5.md
+  - 5.6 QML分析器: Qt_MOOC_Part_5_6.md
+theme: 'material'
