@@ -123,4 +123,4 @@ Qt公司是进行Qt开发、产品化和商业和开源许可的主要责任方�
 
 # 更多资料，请关注本人公众号：**程序员练兵场**
 
-![本人公众号](img/公众号.png)
+![本人公众号](https://img-blog.csdnimg.cn/20201118092424702.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1kwMzk3NzIxMTM2N1k=,size_16,color_FFFFFF,t_70#pic_center)
