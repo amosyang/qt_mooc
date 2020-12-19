@@ -1,0 +1,807 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>1.1 创建和调试Qt项目 - Qt系列教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#qt" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Qt系列教程" class="md-header-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Qt系列教程
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              1.1 创建和调试Qt项目
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Qt系列教程" class="md-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Qt系列教程
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Introduce/" class="md-nav__link">
+      课程介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      1.1 创建和调试Qt项目
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_2/" class="md-nav__link">
+      1.2 字符串处理和值类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_3/" class="md-nav__link">
+      1.3 容器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_1/" class="md-nav__link">
+      2.1 值对象与QObject
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_2/" class="md-nav__link">
+      2.2 对象通信：信号和槽
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_3/" class="md-nav__link">
+      2.3 多任务处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_4/" class="md-nav__link">
+      2.4 父子关系
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_1/" class="md-nav__link">
+      3.1 QML介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_2/" class="md-nav__link">
+      3.2 QML类型和属性
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_3/" class="md-nav__link">
+      3.3 QML基本类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_4/" class="md-nav__link">
+      3.4 文本输入与按键处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_5/" class="md-nav__link">
+      3.5 鼠标处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_6/" class="md-nav__link">
+      3.6 输入处理器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_7/" class="md-nav__link">
+      3.7 定位器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_8/" class="md-nav__link">
+      3.8 锚定布局
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_9/" class="md-nav__link">
+      3.9 Qt Quick Controls
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_10/" class="md-nav__link">
+      3.10 自定义组件
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_11/" class="md-nav__link">
+      3.11 视觉效果
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_1/" class="md-nav__link">
+      4.1 模型视图框架
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_2/" class="md-nav__link">
+      4.2 QML模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_3/" class="md-nav__link">
+      4.3 视图
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_4/" class="md-nav__link">
+      4.4 委托
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_1/" class="md-nav__link">
+      5.1 QML上下文属性和对象
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_2/" class="md-nav__link">
+      5.2 从QML访问C++
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_3/" class="md-nav__link">
+      5.3 创建新的QML类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_4/" class="md-nav__link">
+      5.4 QML中的C++模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_5/" class="md-nav__link">
+      5.5 场景图项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_6/" class="md-nav__link">
+      5.6 QML分析器
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="qt"><center>创建和调试Qt项目<center></h1>
+<p>您好！欢迎加入Qt MOOC！</p>
+<p>本主题涵盖了您在学习本课程时所需的大部分基本知识。我们将从课程的角度，以练习的形式来讨论Qt项目。还会介绍一些重要概念，这些概念将帮助您了解Qt的基础知识。我们使用Qt的官方文档作为辅助材料，这会让您熟悉Qt的官方文档。另外，我们还将讨论构建，qmake和调试信息等。</p>
+<p>如果所有这些对您来说都已经很熟悉了，你可以直接去完成练习，然后进入更具体的主题。如果您在完成Hello World练习时不知道发生了什么情况，请回来阅读基础知识，我们不会对您有任何偏见!</p>
+<p>在开始繁重的工作之前，我们将介绍一些基本概念来帮助您开始。它们是Qt中的全局声明、模块和命名空间。</p>
+<h1 id="1">1. 全局声明和宏</h1>
+<p>让我们来讨论一下Qt中的全局声明，您可以在<a href="http://doc.qt.io/qt-5/qtglobal.html" title="Qt文档">Qt文档中</a>找到一个完整的全局声明列表。</p>
+<p>全局声明包括类型、函数和宏。在进入下一章之前，您绝对不需要记住这个列表，但重要的是，您要知道它是什么，可以用它来做什么，因为您可能会发现它在各种场合下都非常有用。在本主题的最后，我们将讨论在全局声明中找到的一些有用的调试函数。</p>
+<p>类型定义部分是用于方便基本类型的定义(其中一些类型保证了Qt在所有支持的平台上的特定位大小)，部分是与Qt消息处理相关的类型。这些函数与生成消息、Qt版本处理以及比较和调整对象值有关。最后，一些声明的宏允许程序员将编译器或平台特定的代码添加到他们的应用程序中，而另一些宏则是用于更大操作的方便宏。</p>
+<p>如果有必要，我们会在作业或学习主题中明确地向您介绍全局声明列表。</p>
+<h1 id="2-qt">2. Qt模块和命名空间</h1>
+<p>接下来，让我们来讨论一下Qt中的模块。<a href="http://doc.qt.io/qt-5/qtmodules.html" title="这是Qt中的模块列表">这是Qt中的模块列表</a>。</p>
+<p>要将模块包含到项目中，您需要将它们包含在项目的<code>.pro</code>文件中。如果使用qmake，则默认情况下将包括Core和GUI模块。如果您没有在项目中使用GUI模块（无论如何，在开始时大部分时间我们都不会使用GUI模块），只需在您的项目<code>.pro</code>文件中写入<code>QT -= GUI</code>即可将其禁用。所有其他Qt模块都依赖于Qt Core模块。</p>
+<p>接下来，我们看一下有关命名空间及其在Qt中的用法的一些基本知识。<a href="https://doc.qt.io/qt-5.10/namespaces.html" title="这是Qt中主要命名空间的列表">这是Qt中主要命名空间的列表</a>。当然，该课程我们不会使用所有的命名空间，但是在开始之前，我们相信事先了解这个列表会对您有所帮助。</p>
+<p>让我们举一个包含命名空间的示例！假设您想在代码中包含<code>QtConcurrent</code>命名空间。让我们仔细看看<code>QtConcurrent</code>的文档页面：</p>
+<p><img alt="" src="https://materiaalit.github.io/qt-mooc/img/part-1/QtConcurrentNamespace-72ddc814.png" /></p>
+<p>要包含<code>QtConcurrent</code>命名空间，您需要在两个地方进行具体说明：相关文件的头文件（<code>#include &lt;QtConcurrent&gt;</code>），</p>
+<p><img alt="" src="https://materiaalit.github.io/qt-mooc/img/part-1/QtConcurrentWorks-fefccb1c.png" /></p>
+<p>和项目<code>.pro</code>文件（<code>QT += concurrent</code>）。</p>
+<p><img alt="" src="https://materiaalit.github.io/qt-mooc/img/part-1/QtConcurrentInProFile-52079a2d.png" /></p>
+<h1 id="3-qt">3. Qt命名空间</h1>
+<p>在<a href="http://doc.qt.io/qt-5/qt.html" title="Qt命名空间">Qt命名空间</a>中，您会发现Qt库中使用了各种各样的标识符。在进入本主题的下一章之前，我们希望您能记住这些列表。</p>
+<p>只是开个玩笑！我们只是想让您知道，如果您碰巧需要使用命名空间，可以把它作为参考材料。</p>
+<h1 id="4-tmc">4. TMC练习的结构</h1>
+<p>讲完基础知识之后，该看一下TMC练习的结构组成了。</p>
+<p>每个练习都位于每周主练习目录中自己的子目录中。该练习由根级别的<code>.pro</code>文件以及几个目录组成。</p>
+<p>根级别的<code>.pro</code>文件是练习项目的项目文件。我们将在本章后面进一步讨论项目文件。但是现在，我们将重点放在项目结构上。</p>
+<p>用于测试您的练习的本地测试位于<code>test_runner</code>目录中。</p>
+<p>如果您在弄清楚为什么您的练习不能通过测试时遇到了问题，并且您已经用尽了所有其他方法，那么可能值得查看测试运行程序文件。弄清楚测试的内容可能会给您一些线索，让您知道代码中可能存在的问题。如果有助于您更好的理解问题的话，您甚至可以修改本地测试。在极少的情况下，问题可能是由于测试本身是错误的。在这种情况下，我们建议加入课程频道，看看其他人是否有同样的问题。我们已经做了我们所能做的一切来确保这种情况不会发生，但总有特殊情况。</p>
+<p>请注意，本地测试只是为了告诉您，您的练习是否完成并准备好提交。您无法根据自己的偏好修改测试，并期望通过提交一份未完成的作业来通过练习!我们将在您获得分数之前在服务器上测试您的练习!有时候，服务器端可能会有隐藏的测试，以确保您不会根据测试的目的来尝试完成练习，而是完成实际的练习来支持您的学习。</p>
+<p><code>src</code>目录是神奇个地方，它是我们编程的位置。</p>
+<p>它包括每个练习项目的相关源文件和头文件。在某些情况下，库可能包含额外的目录，在某些情况下，我们可能会要求您创建新的目录。没人知道!没有人知道什么时候!没有人知道!但我们稍后会算出来。</p>
+<p>您是否已经注意到每个目录都有自己的<code>.pro</code>文件？这样做的原因是，我们包含在练习目录中的每一个子目录实际上都是实际练习项目中的子项目。让我们详细介绍一下根目录<code>.pro</code>文件：</p>
+<pre><code>TEMPLATE = subdirs
+SUBDIRS += \
+      src \
+      test_runner
+
+      test_runner.depends = src
+</code></pre>
+<p>它会告诉<code>qmake</code>（我们将在本章的下一步讨论它）该练习项目遵循一个名为<code>subdirs</code>的构建模板，并定义了包含在该项目中的子目录。使用子目录模板要求每个声明的子目录都是其自己的项目，并且在子目录中包含它自己的项目文件。最后，我们声明<code>test runner</code>子目录依赖于<code>src</code>目录。这是因为我们想在构建<code>test runner</code>之前构建您的练习，这样<code>test runner</code>就有东西要测试了。</p>
+<h1 id="5-qmake">5. qmake</h1>
+<p><a href="http://doc.qt.io/qt-5/qmake-manual.html" title="qmake">qmake</a>工具可以帮助您在各种平台开发项目时简化构建过程。它会自动生成Makefile，因此只需几行信息即可创建Makefile。您还可以将qmake用于其他软件项目，无论它是不是使用Qt编写的。</p>
+<p><code>qmake</code>根据项目文件中的信息生成一个<code>Makefile</code>。项目文件使用扩展名<code>.pro</code>，通常由Qt Creator中的项目模板创建。项目文件由开发人员处理，以指定他们<code>qmake</code>要用于其项目的指令集，并且通常很简单。不过您也可以为复杂的项目创建更复杂的项目文件。我们将在本章后面进一步讨论项目文件，但由于<code>qmake</code>使用的是存储在项目文件中的信息，所以在谈到<code>qmake</code>时，我们无法避免地会谈到它们的内容。</p>
+<p><code>qmake</code>的行为受项目构建过程中的变量声明的影响。其中一些声明资源对每个平台都是通用的，例如头文件和源文件。其他的用于定制特定平台上编译器和链接器的行为。</p>
+<p>让我们再一次参考我们的练习结构来详细说明，源目录中的<code>.pro</code>文件如下：</p>
+<pre><code>QT -= gui
+
+TARGET = main
+
+CONFIG += c++11 console
+CONFIG -= app_bundle
+
+win32 {
+     CONFIG -= debug_and_release debug_and_release_target
+}
+
+DEFINES += QT_DEPRECATED_WARNINGS
+
+SOURCES += \
+     main.cpp \
+     hello.cpp
+
+ HEADERS += \
+      hello.h
+</code></pre>
+<p>您可以参考<code>01_HelloWorld</code>的目录结构和文件组成。也可以参照<a href="http://doc.qt.io/qt-5/qmake-variable-reference.html" title="qmake变量引用">qmake变量引用</a>，并思考前面提到的<code>.pro</code>文件代码中的声明。您要知道我们要告诉<code>qmake</code>什么以及为什么。win32位可能不是完全不言自明的。</p>
+<p>特定于平台的变量遵循它们的扩展或修改的变量的命名模式，但在其名称中包括相关平台的名称。例如，<code>LIBS</code>可用于指定项目需要链接的库列表。如下：</p>
+<pre><code>unix:LIBS += -L/usr/local/lib -lmath
+win32:LIBS += c:/mylibs/math.lib
+</code></pre>
+<p>如果您想自己做一些探索，我们建议您查看<a href="http://doc.qt.io/qt-5/qmake-variable-reference.html" title="qmake变量的完整列表">qmake变量的完整列表</a>，以便自行浏览。</p>
+<h1 id="6-pro">6. .pro文件</h1>
+<p>在项目文件中，变量用于保存字符串列表。在最简单的项目中，这些变量会告知<code>qmake</code>要使用的配置选项，或者提供要在构建过程中使用的文件名和路径。</p>
+<p><code>qmake</code>会在每个项目文件中查找某些变量，并使用这些变量的内容来确定应该向<code>Makefile</code>写入什么。例如，<code>HEADERS</code>和<code>SOURCES</code>变量中的值列表用于声明<code>qmake</code>与项目文件位于同一目录中的头文件和源文件。</p>
+<p>只要您使用<code>qmake</code>，默认情况下就会包括Core和GUI模块。</p>
+<p>变量还可以在内部用于存储值的临时列表，现有的值列表可以用新值覆盖或扩展。</p>
+<p>以下代码段说明了如何将值列表分配给变量：</p>
+<pre><code>HEADERS = mainwindow.h paintwidget.h
+</code></pre>
+<p>变量中的值列表以以下方式扩展：</p>
+<pre><code>SOURCES = main.cpp mainwindow.cpp \
+          paintwidget.cpp
+CONFIG += console
+</code></pre>
+<p>注意：第一个赋值仅包含与<code>HEADERS</code>变量在同一行上指定的值。第二个赋值<code>SOURCES</code>使用反斜杠（<code>\</code>）将变量中的值分成几行。</p>
+<h1 id="7-qt">7. Qt资源系统</h1>
+<p><a href="https://doc.qt.io/qt-5/resources.html" title="Qt资源系统">Qt资源系统</a>是一种独立于平台的方式，用于在应用程序的可执行文件中存储应用程序资源(图像、图标、翻译文件、数据等)。
+资源在资源集合文件中<code>qrc</code>指定:</p>
+<pre><code>&lt;!DOCTYPE RCC&gt;&lt;RCC version="1.0"&gt;
+&lt;qresource&gt;
+    &lt;file&gt;images/icon.png&lt;/file&gt;
+    &lt;file&gt;data.txt&lt;/file&gt;
+&lt;/qresource&gt;
+&lt;/RCC&gt;
+</code></pre>
+<p>然后将该文件包含在<code>.pro</code>文件中，如<code>RESOURCES = application.qrc</code>。指定的文件将被压缩并包装为一个C++静态数组。接着可以使用像<a href="https://doc.qt.io/qt-5/qfile.html" title="QFile">QFile</a>或图像类型来访问它们，就像其他任何文件一样：</p>
+<pre><code>QIcon icon(":/images/icon.png")
+QFile file(":/data.txt");
+</code></pre>
+<h1 id="8-qdebug">8. QDebug类</h1>
+<p><a href="http://doc.qt.io/qt-5/qdebug.html" title="QDebug">QDebug</a>类提供了一个用于调试信息的输出流。</p>
+<p>当开发人员需要将调试或跟踪信息写入设备、文件、字符串或控制台时，就会使用<a href="http://doc.qt.io/qt-5/qdebug.html" title="QDebug">QDebug</a>。</p>
+<p><strong>基本用途</strong></p>
+<p>在通常情况下，调用<code>qDebug()</code>函数以获得默认的QDebug对象以用于编写调试信息很有用。</p>
+<pre><code>qDebug() &lt;&lt; "Date:" &lt;&lt; QDate::currentDate();
+qDebug() &lt;&lt; "Types:" &lt;&lt; QString("String") &lt;&lt; QChar('x') &lt;&lt; QRect(0, 10, 50, 40);
+qDebug() &lt;&lt; "Custom coordinate type:" &lt;&lt; coordinate;
+</code></pre>
+<p><code>QDebug</code>的构造函数会接受<code>QtMsgType</code>值来构造一个<code>QtDebugMsg</code>对象。类似地，<code>qWarning()</code>，<code>qCritical()</code>和<code>qFatal()</code>也会返回相应的消息类型的QDebug对象。</p>
+<p>这个类还为其他情况提供了一些构造函数，包括接收<a href="https://doc.qt.io/qt-5/qfile.html" title="QFile">QFile</a>或用于将调试信息写入文件，套接字，其他进程等的任何其他<a href="https://doc.qt.io/qt-5/qiodevice.html" title="QIO设备">QIODevice</a>子类的构造函数。接收QString的构造函数用于写入用于显示或序列化的字符串。</p>
+<p><strong>格式化选项</strong></p>
+<p>格式化QDebug的输出以便于阅读。它在参数之间会自动添加空格，并为<code>QString</code>，<code>QByteArray</code>，<code>QChar</code>的参数增加了引号。</p>
+<p>您可以通过<code>space()</code>，<code>nospace()</code>，<code>quote()</code>，<code>noquote()</code>方法来调整这些选项。另外，可以将<code>QTextStream</code>通过管道传送到<code>QDebug</code>流中。</p>
+<p>使用<code>QDebugStateSaver</code>会将格式更改限制为当前范围。<code>resetFormat()</code>将选项重置为默认选项。</p>
+<p><strong>将自定义类型写入流</strong></p>
+<p>可以将许多标准类型写入QDebug对象，而Qt提供了对大多数Qt值类型的支持。要添加对自定义类型的支持，您需要实现一个流操作符，如下面的示例所示:</p>
+<pre><code>QDebug operator&lt;&lt;(QDebug debug, const Coordinate &amp;c)
+{
+    QDebugStateSaver saver(debug);
+    debug.nospace() &lt;&lt; '(' &lt;&lt; c.x() &lt;&lt; ", " &lt;&lt; c.y() &lt;&lt; ')';
+
+    return debug;
+}
+</code></pre>
+<h1 id="9">9. 输出调试信息</h1>
+<p><a href="http://doc.qt.io/qt-5/qtglobal.html#qdebug" title="QDegug">qDebug</a>，<a href="http://doc.qt.io/qt-5/qtglobal.html#qWarning" title="qWarning">qWarning</a>，<a href="http://doc.qt.io/qt-5/qtglobal.html#qCritical" title="qCritical">qCritical</a>和<a href="http://doc.qt.io/qt-5/qtglobal.html#qFatal" title="qFatal">qFatal</a>是Qt全局声明中定义的函数。这些函数采用格式化字符串和参数列表，类似于C语言的<code>printf()</code>函数。格式应为Latin-1字符串。要禁止这些类型中的任何一种，您可以使用<a href="https://doc.qt.io/qt-5/qtglobal.html#qInstallMessageHandler" title="qInstallMessageHandler">qInstallMessageHandler</a>安装自己的消息处理程序。函数使用定义的调试/严重/致命/警告消息调用消息处理程序。它们调用消息处理程序，如果没有消息处理程序，则将消息打印到<code>stderr</code>。在Windows上，大多数情况下，该消息会发送到调试器。</p>
+<pre><code>qDebug(const char *message, ...)
+</code></pre>
+<p>在Windows下，如果消息是控制台应用程序，则将消息发送到控制台。否则，它将被发送到调试器。如果在编译过程中定义了<code>QT_NO_DEBUG_OUTPUT</code>，则此函数不执行任何操作。</p>
+<p>例如：</p>
+<pre><code>qDebug("Items in list: %d", myList.size());
+</code></pre>
+<p>如果导入<code>QtDebug</code>，还可以使用更方便的语法：</p>
+<pre><code>qDebug() &lt;&lt; "Brush:" &lt;&lt; myQBrush &lt;&lt; "Other value:" &lt;&lt; i;
+</code></pre>
+<p>使用此语法，该函数返回一个QDebug对象，该对象配置为使用QtDebugMsg消息类型。它会自动在每个项目之间放置一个空格，并在末尾输出换行符。它支持许多C++和Qt类型。</p>
+<p>导入<code>QtDebug</code>同样允许以使用<code>qInfo</code>，<code>qCritical</code>和<code>qWarning</code>等效语法。</p>
+<pre><code>qCritical(const char *message, ...)
+</code></pre>
+<p>如果环境变量<code>QT_FATAL_CRITICALS</code>不为空，则退出。</p>
+<p>例如：</p>
+<pre><code>void load(const QString &amp;fileName)
+{
+     QFile file(fileName);
+     if (!file.exists())
+          qCritical("File '%s' does not exist!", qUtf8Printable(fileName));
+}
+</code></pre>
+<p>-</p>
+<pre><code>qWarning(const char *message, ...)
+</code></pre>
+<p>如果在编译期间定义<code>QT_NO_WARNING_OUTPUT</code>，则此函数不执行任何操作。如果在环境变量<code>QT_FATAL_WARNINGS</code>中的计数器对应的第n个警告时，它就会退出。也就是说，如果环境变量包含值1，它将在第一条消息上退出；如果它定义为10，它将在第10条消息上退出。任何非数字值都等于1。</p>
+<p>例如：</p>
+<pre><code>void f(int c)
+{
+    if (c &gt; 200)
+        qWarning("f: bad argument, c == %d", c);
+}
+
+
+qFatal(const char *message, ...)
+</code></pre>
+<p>如果使用默认消息处理程序，则此函数将中止以创建核心转储。在Windows上，对于调试版本，此功能将报告<code>_CRT_ERROR</code>使您能够将调试器连接到应用程序。</p>
+<p>例如：</p>
+<pre><code>int divide(int a, int b)
+{
+    if (b == 0)                                
+         qFatal("divide: cannot divide by zero");
+    return a / b;
+}
+</code></pre>
+<h1 id="10">10. 影子构建</h1>
+<p>成功构建第一个Qt项目后，您可能会对构建的二进制文件感兴趣。默认情况下，Qt Creator将项目作为<a href="https://doc.qt.io/qtcreator/creator-glossary.html#glossary-shadow-build" title="影子构建">影子构建</a>到一个单独的目录（`build-ProjectName- *`）中，该目录与源目录分开。<code>qmake</code>也可以生成<strong>源代码内部</strong>版本，但是不建议这样做。影子构建的好处是保持该目录的清洁，这使得在Kit或构建配置之间进行更改的速度更快。</p>
+<hr />
+<blockquote>
+<p>嘿! 现在是我们第一次练习的时候了。这将是一个简单的过程，请放心。只需从TMC下载练习模板，打开项目，然后转到<code>hello.cpp</code>。 
+在<code>world()</code>函数中，写上“Hello world”作为<code>qDebug</code>消息，并写上“Don't panic!” 作为<code>qWarning</code>消息。</p>
+</blockquote>
+<hr />
+<p><a href="https://materiaalit.github.io/qt-mooc/part1/">Source</a></p>
+<h1 id="_1">更多资料，请关注本人公众号：<strong>程序员练兵场</strong></h1>
+<p><img alt="在这里插入图片描述" src="../img/%E5%85%AC%E4%BC%97%E5%8F%B7.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Qt_MOOC_Introduce/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                课程介绍
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Qt_MOOC_Part_1_2/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                1.2 字符串处理和值类型
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

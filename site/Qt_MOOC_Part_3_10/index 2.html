@@ -1,0 +1,841 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>3.10 自定义组件 - Qt系列教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Qt系列教程" class="md-header-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Qt系列教程
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              3.10 自定义组件
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Qt系列教程" class="md-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Qt系列教程
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Introduce/" class="md-nav__link">
+      课程介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_1/" class="md-nav__link">
+      1.1 创建和调试Qt项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_2/" class="md-nav__link">
+      1.2 字符串处理和值类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_3/" class="md-nav__link">
+      1.3 容器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_1/" class="md-nav__link">
+      2.1 值对象与QObject
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_2/" class="md-nav__link">
+      2.2 对象通信：信号和槽
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_3/" class="md-nav__link">
+      2.3 多任务处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_4/" class="md-nav__link">
+      2.4 父子关系
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_1/" class="md-nav__link">
+      3.1 QML介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_2/" class="md-nav__link">
+      3.2 QML类型和属性
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_3/" class="md-nav__link">
+      3.3 QML基本类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_4/" class="md-nav__link">
+      3.4 文本输入与按键处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_5/" class="md-nav__link">
+      3.5 鼠标处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_6/" class="md-nav__link">
+      3.6 输入处理器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_7/" class="md-nav__link">
+      3.7 定位器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_8/" class="md-nav__link">
+      3.8 锚定布局
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_9/" class="md-nav__link">
+      3.9 Qt Quick Controls
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      3.10 自定义组件
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_11/" class="md-nav__link">
+      3.11 视觉效果
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_1/" class="md-nav__link">
+      4.1 模型视图框架
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_2/" class="md-nav__link">
+      4.2 QML模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_3/" class="md-nav__link">
+      4.3 视图
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_4/" class="md-nav__link">
+      4.4 委托
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_1/" class="md-nav__link">
+      5.1 QML上下文属性和对象
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_2/" class="md-nav__link">
+      5.2 从QML访问C++
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_3/" class="md-nav__link">
+      5.3 创建新的QML类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_4/" class="md-nav__link">
+      5.4 QML中的C++模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_5/" class="md-nav__link">
+      5.5 场景图项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_6/" class="md-nav__link">
+      5.6 QML分析器
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1"><center>自定义组件<center></h1>
+<h1 id="1">1. 关于属性的更多信息</h1>
+<p>在介绍本节的实际内容“自定义组件”之前，我们先对在第三章第二节中介绍的QML属性系统进行一些扩展。</p>
+<h2 id="11">1.1 默认关键字</h2>
+<p>在介绍属性时，您可能看到了这样的语法：</p>
+<pre><code>[default] property &lt;propertyType&gt; &lt;propertyName&gt;
+</code></pre>
+<p>它用于在QML中定义属性。然而在第三章第二节中，我们并没有解释过可选关键字<code>default</code>的用途。现在我们来讨论一下这个话题。</p>
+<p>声明对象时可以有一个唯一的<code>default</code>属性。如果一个对象是在另一个对象的定义中声明的，而没有将其声明为特定属性的值，则默认属性是为该对象赋值的属性。</p>
+<p>假设有一个<code>MyLabel.qml</code>文件具有默认的属性<code>someText</code>：</p>
+<pre><code>import QtQuick 2.0
+
+Text {
+    default property var someText
+
+    text: "Hello, " + someText.text
+}
+</code></pre>
+<p>该<code>someText</code>值可以在<code>MyLabel</code>对象定义中分配，像这样:</p>
+<pre><code>MyLabel {
+    someText: Text { text: "world!" }
+}
+</code></pre>
+<p>它与下面的效果完全相同：</p>
+<pre><code>MyLabel {
+    Text { text: "world!" }
+}
+</code></pre>
+<p>然而，由于someText属性已经被标记为默认属性，所以没有必要显式地将<code>Text</code>对象分配给这个属性。</p>
+<p>您可能已经注意到，我们可以将子对象添加到任何<code>Item</code>上，而无需显式地将它们添加到children属性。这是因为<code>Item</code>的data属性是它的<code>default</code>属性，并且为某个<code>Item</code>添加到这个列表中的任何项都会自动添加到它的子列表中。</p>
+<h2 id="12">1.2 只读关键字</h2>
+<p>对象声明可以使用<code>readonly</code>关键字通过以下语法定义为只读属性：</p>
+<pre><code>readonly property &lt;propertyType&gt; &lt;propertyName&gt; : &lt;initialValue&gt;
+</code></pre>
+<p>只读属性必须在初始化时赋值。在初始化只读属性之后，就不可能再给它赋值了，无论是通过命令式代码还是其他方式。</p>
+<p>请注意，只读属性不能是默认属性。</p>
+<h2 id="13">1.3 自定义信号</h2>
+<p>我们在第三章第二节中讨论了QML中的信号处理器。那如果想定义自己的信号该怎么办呢？您可以在C++中去实现，也可以在与我们当前的主题相关的QML中实现。</p>
+<p>在QML中声明信号的语法如下： <code>signal &lt;signalName&gt;[([&lt;type&gt; &lt;parameter name&gt;[, ...]])]</code></p>
+<p>尝试在同一类型中声明具有相同名称的两个信号或方法是错误的。但是新信号可以重用该类型上现有信号的名称。(此操作应谨慎进行，因为现有信号可能被隐藏而无法访问。)</p>
+<p>这是信号声明的三个示例：</p>
+<pre><code>import QtQuick 2.0
+
+Item {
+    signal clicked
+    signal hovered()
+    signal actionPerformed(string action, var actionResult)
+}
+</code></pre>
+<p>如果信号没有参数，则括号“（）”可以省略。如果使用了参数，则必须声明参数类型，如上述<code>actionPerformed</code>信号的string和var参数一样。通常认为参数类型与属性中参数类型相同。</p>
+<p>要发出信号，可以将其作为方法调用。在发出信号后，将调用所有相关的信号处理器，处理器可以使用定义的信号参数名来访问相应的参数。</p>
+<h2 id="14">1.4 连接类型</h2>
+<p>正如我们在第三章第二节中看到的，在QML中连接信号时，通常的方法是创建一个<code>on&lt;Signal&gt;</code>处理器，它会在接收到信号时做出响应。</p>
+<p>然而在某些情况下，不可能以这种方式连接到信号，例如：</p>
+<ul>
+<li>需要多次连接到同一信号</li>
+<li>在信号发送方的范围之外创建连接</li>
+<li>连接到QML中未定义的目标</li>
+</ul>
+<p>当需要实现其中任何一种情况时，可以使用<code>Connections</code>类型。</p>
+<p>例如，<code>Connections</code>对象可以是某个对象的子对象，而不是信号的发送方：</p>
+<pre><code>MouseArea {
+    id: area
+}
+
+Connections {
+    target: area
+    onClicked: foo(parameters)
+}
+</code></pre>
+<h2 id="15">1.5 属性别名</h2>
+<p>属性别名是保存对另一个属性的引用的属性。与为属性分配新的唯一存储空间的普通属性定义不同，属性别名将新声明的属性（属性别名）连接起来，作为对现有属性的直接引用。</p>
+<p>属性别名声明看起来就像普通的属性定义，只是它需要<code>alias</code>关键字而不是属性类型，并且属性声明的右侧必须是有效的别名引用：</p>
+<pre><code>[default] property alias &lt;name&gt;: &lt;alias reference&gt;
+</code></pre>
+<p>与普通属性不同，别名具有以下限制：</p>
+<ul>
+<li>它只能引用声明别名的类型范围内的对象或对象的属性。</li>
+<li>不能包含任何JavaScript表达式。</li>
+<li>不能引用在其类型范围之外声明的对象。</li>
+<li>别名引用不是可选的，不像普通属性的可选默认值，它必须在第一次声明别名时提供。</li>
+<li>
+<p>不能引用分组属性，以下代码将不起作用：</p>
+<p>property alias color: rectangle.border.color</p>
+<p>Rectangle {
+    id: rectangle
+}  </p>
+</li>
+</ul>
+<p>但是，值类型属性的别名确实有效：</p>
+<pre><code>property alias rectX: object.rectProperty.x
+
+Item {
+    id: object
+    property rect rectProperty
+}
+</code></pre>
+<h1 id="2-qml">2. QML组件</h1>
+<p>我们之前已经在材料和练习中使用过组件，但没有介绍过组件通常是如何使用以及为什么使用的。QML里定义的组件是一个可实例化的QML类型。它通常包含在它自己的<code>.qml</code>文件中。例如，<code>Button</code>组件定义在<code>Button.qml</code>文件中。我们可以通过实例化这个<code>Button</code>组件来创建<code>Button</code>对象。组件也可以在<code>Component</code>项目内部定义。</p>
+<p>定义<code>Button</code>组件时可以同时包含其他的组件，可以使用一个<code>Text</code>元素、一个<code>MouseArea</code>和其他元素来实现内部功能。将不同的组件组合成新的组件(以及有效的新接口)是良好的、可重用的UI组件的关键。</p>
+<p>让我们看一个用于选择文本元素颜色的颜色选择器的示例。我们的选择器目前由四个不同颜色的单元格组成。一个非常幼稚的方法是在主应用程序中用<code>Rectangle</code>和<code>MouseArea</code>项编写多个<code>Item</code>。</p>
+<pre><code>Rectangle {
+    id: page
+    width: 500
+    height: 200
+    color: "black"
+
+    Text {
+        id: helloText
+        text: "Hello world!"
+        y: 30
+        anchors.horizontalCenter: page.horizontalCenter
+    }
+
+    Grid {
+        id: colorPicker
+        x: 4; anchors.bottom: page.bottom; anchors.bottomMargin: 4
+        rows: 2; columns: 3; spacing: 3
+
+        Item {
+            width: 40
+            height: 25
+
+            Rectangle {
+                id: rectangle
+                color: "red"
+                anchors.fill: parent
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: helloText.color = "red"
+            }
+        }          
+        // 想象一下，定义了更多具有不同颜色值的重复项目……
+    }
+}
+</code></pre>
+<p>您可能注意到这里会有很多重复的代码！此外，要添加更多的颜色，我们需要定义更多只改变颜色值的元素。为了避免为每种颜色一次又一次地编写相同的代码，我们可以从重复的代码中提取一个<code>Cell</code><strong>组件</strong>到<code>Cell.qml</code>里。</p>
+<p>下面是我们提取的<code>Rectangle</code>和<code>MouseArea</code>的组件定义:</p>
+<pre><code>Item {
+    id: container
+    width: 40; height: 25
+
+    Rectangle {
+        id: rectangle
+        color: "red"
+        anchors.fill: parent
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: console.log("clicked?")
+    }
+}
+</code></pre>
+<p>通常，组件是用<code>Item</code>类型作为根项定义的。现在我们有了Cell组件，但目前它是一个没有外部影响的组件，具有一个硬编码的颜色值。它不是可重复使用的，我们如何使其可重用并与其他项交互呢？</p>
+<p>我们无法访问<code>Text</code>项目的<code>text</code>属性，也无法访问<code>Cell</code>组件里的<code>rectangle.color</code>属性。</p>
+<p>为此，我们需要公开一个<strong>接口</strong>供其他组件使用。可以使用属性关键字<code>alias</code>和<code>signal</code>来暴露此功能。</p>
+<pre><code>Item {
+    id: container
+
+    property alias cellColor: rectangle.color
+    signal clicked(color cellColor)
+
+    width: 40; height: 25
+
+    Rectangle {
+        id: rectangle
+        anchors.fill: parent
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: container.clicked(container.cellColor)
+    }
+}
+</code></pre>
+<p>现在，我们可以使用<code>cellColor</code>属性从组件外部设置<code>rectangle.color</code>，并且可以使用<code>clicked</code>属性为信号安装<strong>信号处理器</strong><code>onClicked</code>：</p>
+<pre><code>Cell {
+    cellColor: "red"
+    onClicked: helloText.color = cellColor
+}
+</code></pre>
+<p>这样我们可以很容易地添加更多的颜色，仅在单元格内定义:</p>
+<pre><code>Rectangle {
+    id: page
+    width: 500
+    height: 200
+    color: "black"
+
+    Text {
+        id: helloText
+        text: "Hello world!"
+        y: 30
+        anchors.horizontalCenter: page.horizontalCenter
+    }
+
+    Grid {
+        id: colorPicker
+        x: 4; anchors.bottom: page.bottom; anchors.bottomMargin: 4
+        rows: 2; columns: 2; spacing: 3
+
+        Cell { cellColor: "red"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "green"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "blue"; onClicked: helloText.color = cellColor }
+        Cell { cellColor: "yellow"; onClicked: helloText.color = cellColor }
+    }
+}
+</code></pre>
+<h1 id="3">3. 可重用组件</h1>
+<p>到目前为止，我们一直在制作独立的组件，但是现在我们要看看如何将它们集成到具有导航、布局和样式的面向用户的应用程序中。</p>
+<p>组件通常添加到根<a href="https://doc.qt.io/qt-5/qml-qtquick-window-window.html" title="窗口">窗口</a>中，根窗口充当用户的顶层界面。但是，正如我们在上一章中看到的，还有一个扩展的<a href="https://doc.qt.io/qt-5/qml-qtquick-controls2-applicationwindow.html" title="ApplicationWindow">ApplicationWindow</a>，它包含了向窗口添加常用UI项的方便方法。还提供了一个接口来从QML中控制窗口的属性、外观和布局。</p>
+<p>正如前面在创建通用<code>Component</code>时所讨论的，最好不要引用应用程序根项目的id，因为这会对其他项目产生依赖关系。<code>ApplicationWindow</code>提供了这些通用属性来创建自己的接口，而不需要创建对某个窗口id的依赖。</p>
+<p><a href="https://materiaalit.github.io/qt-mooc/part3/">Source</a></p>
+<h1 id="_2">更多资料，请关注本人公众号：<strong>程序员练兵场</strong></h1>
+<p><img alt="在这里插入图片描述" src="../img/%E5%85%AC%E4%BC%97%E5%8F%B7.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Qt_MOOC_Part_3_9/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                3.9 Qt Quick Controls
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Qt_MOOC_Part_3_11/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                3.11 视觉效果
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
