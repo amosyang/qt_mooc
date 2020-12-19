@@ -1,0 +1,788 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>2.1 值对象与QObject - Qt系列教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#qobject" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Qt系列教程" class="md-header-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Qt系列教程
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              2.1 值对象与QObject
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Qt系列教程" class="md-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Qt系列教程
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Introduce/" class="md-nav__link">
+      课程介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_1/" class="md-nav__link">
+      1.1 创建和调试Qt项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_2/" class="md-nav__link">
+      1.2 字符串处理和值类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_3/" class="md-nav__link">
+      1.3 容器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      2.1 值对象与QObject
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_2/" class="md-nav__link">
+      2.2 对象通信：信号和槽
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_3/" class="md-nav__link">
+      2.3 多任务处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_4/" class="md-nav__link">
+      2.4 父子关系
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_1/" class="md-nav__link">
+      3.1 QML介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_2/" class="md-nav__link">
+      3.2 QML类型和属性
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_3/" class="md-nav__link">
+      3.3 QML基本类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_4/" class="md-nav__link">
+      3.4 文本输入与按键处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_5/" class="md-nav__link">
+      3.5 鼠标处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_6/" class="md-nav__link">
+      3.6 输入处理器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_7/" class="md-nav__link">
+      3.7 定位器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_8/" class="md-nav__link">
+      3.8 锚定布局
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_9/" class="md-nav__link">
+      3.9 Qt Quick Controls
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_10/" class="md-nav__link">
+      3.10 自定义组件
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_11/" class="md-nav__link">
+      3.11 视觉效果
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_1/" class="md-nav__link">
+      4.1 模型视图框架
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_2/" class="md-nav__link">
+      4.2 QML模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_3/" class="md-nav__link">
+      4.3 视图
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_4/" class="md-nav__link">
+      4.4 委托
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_1/" class="md-nav__link">
+      5.1 QML上下文属性和对象
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_2/" class="md-nav__link">
+      5.2 从QML访问C++
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_3/" class="md-nav__link">
+      5.3 创建新的QML类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_4/" class="md-nav__link">
+      5.4 QML中的C++模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_5/" class="md-nav__link">
+      5.5 场景图项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_6/" class="md-nav__link">
+      5.6 QML分析器
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="qobject"><center>值对象与QObject<center></h1>
+<h1 id="1">1. 元对象系统</h1>
+<p>Qt的元对象系统为对象间通信、运行时类型信息(RTTI)和动态属性系统提供了信号和槽机制。信号和槽是Qt中最重要的概念之一，我们将在下一章进行讨论。</p>
+<p>元对象系统通过三种机制实现：</p>
+<ul>
+<li><code>QObject</code> 是元对象系统中所有对象继承的基类。</li>
+<li><code>Q_OBJECT</code>在类定义中声明时，该宏用于启用元对象功能。</li>
+<li>元对象编译器(<code>moc</code>)将读取带有已声明的<code>Q_OBJECT</code>宏的类定义，并生成元对象代码。</li>
+</ul>
+<h1 id="2">2. 值类型和标识类型</h1>
+<p>值类型可以被复制和赋值。许多Qt值类型，如<code>QString</code>和Qt容器，也使用隐式共享(写时复制)。隐式共享类在作为参数传递时既安全又高效，因为只有指向数据的指针才会被传递，而且只有当函数写入数据时数据才会被复制。自定义值类型可以通过使用<code>Q_DECLARE_METATYPE</code>宏让元对象系统知道，这使得它们可以存储在<code>QVariant</code>中。这在读取属性时非常有用。如何做到这一点，将在本章的后面讨论，并会讨论属性系统。</p>
+<p>标识类型派生于<code>QObject</code>。它使用元对象系统扩展了C++的许多动态特性。<code>QObject</code>被设计成没有复制构造函数或赋值运算符。实际上是在私有部分中声明了<code>Q_DISABLE_COPY()</code>宏。实际上，所有从<code>QObject</code>派生的Qt类(直接或间接)都使用这个宏将它们的复制构造函数和赋值操作符声明为私有了。导致的结果是您应该使用指向<code>QObject</code>（或<code>QObject</code>子类）的指针，否则您可能会试图使用<code>QObject</code>子类作为值。例如，如果没有复制构造函数，就不能使用<code>QObject</code>的子类作为要存储在某个容器类中的值。您必须存储指针。</p>
+<h1 id="3-qtqobject">3. Qt对象模型和QObject类</h1>
+<p><code>QObject</code>类是所有Qt对象的基类。它是Qt对象模型的核心。该模型的核心特性是一种非常强大的对象通信机制，称为信号和槽。信号和槽系统将在下一章详细讨论。</p>
+<p><code>QObject</code>将自己组织在对象树中。当您创建一个<code>QObject</code>以其他对象作为父对象的对象时，该对象会自动将其自身添加到父对象的<code>children()</code>列表中。父对象拥有对象的所有权，也就是说，它将在其析构函数中自动删除其子级。您可以使用<code>findChild()</code>或<code>findChildren()</code>根据名称和可选类型查找对象。父子关系将在后面讨论。</p>
+<p>每个对象都有一个<code>objectName()</code>，它的类名可以通过对应的<code>metaObject()</code>找到(参考<code>QMetaObject::className()</code>)。通过使用<code>inherits()</code>函数，可以确定对象的类是否继承<code>QObject</code>继承层次结构中的另一个类。</p>
+<p>当一个对象被删除时，它会发出一个<code>destroyed()</code>信号。您可以捕获这个信号，以避免对<code>QObject</code>的悬空引用。</p>
+<p>最后重要的是，<code>QObject</code>在Qt中提供基本的定时器支持，有关计时器的高级支持，请参阅<code>QTimer</code>。</p>
+<h1 id="31-q_object">3.1 Q_OBJECT宏</h1>
+<p><code>Q_OBJECT</code>宏必须出现在类定义的私有部分中，该类定义声明自己的信号和槽，或者使用Qt元对象系统提供的其他服务。</p>
+<p><code>moc</code>工具会读取C++头文件。如果它发现一个或多个包含<code>Q_OBJECT</code>宏的类声明，它将生成一个C++源文件，其中包含这些类的元对象代码。这个元对象代码实现了运行时特性所需的底层功能。当使用<code>qmake</code>时，你不需要手动运行<code>moc</code>工具，它会自动完成。</p>
+<p>示例如下：</p>
+<pre><code>#include &lt;QObject&gt;
+
+class Counter : public QObject
+{
+    Q_OBJECT
+
+public:
+    Counter() { m_value = 0; }
+    int value() const { return m_value; }
+
+public slots:
+    void setValue(int value);
+
+signals:
+    void valueChanged(int newValue);
+
+private:
+    int m_value;
+};
+</code></pre>
+<p>这个宏要求类是<code>QObject</code>的子类。您可以使用<code>Q_GADGET</code>而不是<code>Q_OBJECT</code>来启用元对象系统对非<code>QObject</code>子类中的枚举的支持。<code>Q_GADGET</code>宏是<code>Q_OBJECT</code>宏的简易版本，用于那些不从<code>QObject</code>继承但仍然希望使用<code>QMetaObject</code>提供的一些反射功能的类。就像<code>Q_OBJECT</code>宏一样，它必须出现在类定义的私有部分中。</p>
+<p>注意，<code>Q_OBJECT</code>宏对于任何实现信号、槽或属性的对象都是必须的。我们强烈建议在<code>QObject</code>的所有子类中使用这个宏，不管它们是否实际使用信号、槽和属性，因为如果不这样做，可能会导致某些函数表现出奇怪的行为。</p>
+<h1 id="32-i18n">3.2 国际化（I18n）</h1>
+<p>所有<code>QObject</code>子类都支持Qt的翻译功能，从而可以将应用程序的用户界面翻译成不同的语言。</p>
+<p>为了使用户可见的文本可翻译，必须将其包装在<code>tr()</code>函数中。<a href="https://doc.qt.io/qt-5/i18n-source-translation.html" title="编写翻译的源代码">编写翻译的源代码</a>文档中对此进行了详细说明。我们不会在这门课上涉及国际化，但是有必要知道它的存在。</p>
+<h1 id="4">4. 属性系统</h1>
+<p>Qt提供了一个复杂的<a href="http://doc.qt.io/qt-5/properties.html" title="属性系统">属性系统</a>，类似于一些编译器供应商提供的属性系统。但是，作为与编译器和平台无关的库，Qt不依赖于非标准的编译器功能，例如<code>__property</code>或<code>[property]</code>。Qt的解决方案适用于Qt支持的每个平台上的任何标准C++编译器。它是基于元对象系统的，也提供了信号和槽机制。</p>
+<h1 id="41">4.1 声明属性的要求</h1>
+<p>要声明属性，请在继承<code>QObject</code>的类中使用<code>Q_PROPERTY()</code>宏。下面的示例展示了如何使用<code>MEMBER</code>关键字将成员变量导出为Qt属性。注意，<code>NOTIFY</code>必须指定一个信号以允许QML属性绑定。我们将在第3部分中进一步讨论QML！</p>
+<pre><code>Q_PROPERTY(QColor color MEMBER m_color NOTIFY colorChanged)
+Q_PROPERTY(qreal spacing MEMBER m_spacing NOTIFY spacingChanged)
+Q_PROPERTY(QString text MEMBER m_text NOTIFY textChanged)
+
+...
+
+signals:
+    void colorChanged();
+    void spacingChanged();
+    void textChanged(const QString &amp;newText);
+
+private:
+    QColor  m_color;
+    qreal   m_spacing;
+    QString m_text;
+</code></pre>
+<p>属性的行为类似于类的数据成员，但是它具有可以通过<a href="http://doc.qt.io/qt-5/metaobjects.html" title="元对象系统">元对象系统</a>访问的附加特性。</p>
+<p>属性声明语法有多个关键字来指定所声明属性的行为。以下是最相关的几个:</p>
+<ul>
+<li><code>READ</code>-用于读取属性值。理想情况下，将const用于此函数，并且它必须返回属性的类型或对该类型的const引用。例如，<code>QWidget::focus</code>是具有READ函数的只读属性<code>QWidget::hasFocus()</code>。如果没有指定<code>MEMBER</code>变量，则该关键字必须存在。</li>
+<li><code>WRITE</code>-用于设置属性值。它必须返回void，并且必须正好接受一个参数，该参数可以是属性的类型，也可以是对该类型的指针或引用。例如，<code>QWidget::enabled</code>具有<code>WRITE</code>函数<code>QWidget::setEnabled()</code>。只读属性不需要<code>WRITE</code>函数。例如，<code>QWidget::focus</code>没有<code>WRITE</code>函数。</li>
+<li><code>MEMBER</code>-如果没有指定<code>READ</code>访问器函数，则该关键字必须存在。这使得给定的成员变量可以读和写，而不需要创建<code>READ</code>和<code>WRITE</code>访问器函数。如果需要控制变量访问，仍然可以在<code>MEMBER</code>变量关联之外使用<code>READ</code>或<code>WRITE</code>访问器函数(但不能同时使用)。</li>
+<li><code>RESET</code>- 可选的。用于将属性重置为其上下文特定的默认值。例如，<code>QWidget::cursor</code>具有典型的<code>READ</code>和<code>WRITE</code>函数<code>QWidget::cursor()</code>和<code>QWidget::setCursor()</code>，并且还具有<code>RESET</code>函数<code>QWidget::unsetCursor()</code>，因为没有调用<code>QWidget::setCursor()</code>可能意味着重置上下文特定的游标。<code>RESET</code>函数必须返回<code>void</code>并且不接受任何参数。</li>
+<li><code>NOTIFY</code>- 可选的。如果定义，则应在该类中指定一个现有信号，只要该属性的值发生更改，该信号就会发出。<code>MEMBER</code>变量的<code>NOTIFY</code>信号必须接收零个或一个参数，该参数必须与属性具有相同的类型。该参数将接受该属性的新值。例如，<code>NOTIFY</code>应该仅在属性确实发生更改时才发出信号，以避免不必要地在QML中重新绑定。Qt会在没有显式设置的<code>MEMBER</code>属性需要时自动发出该信号。</li>
+<li><code>USER</code>-属性表明是否将该属性指定为类面向用户的属性或用户可编辑的属性。通常，每个类只有一个<code>USER</code>属性(默认为false)。例如，<code>QAbstractButton::checked</code>是（可选）按钮的用户可编辑属性。</li>
+</ul>
+<p>属性类型可以是<code>QVariant</code>支持的任何类型，也可以是用户定义的类型。在此示例中，类<code>QDate</code>被认为是用户定义的类型。</p>
+<pre><code>Q_PROPERTY(QDate date READ getDate WRITE setDate)
+</code></pre>
+<p>因为<code>QDate</code>是用户定义的，所以必须在属性声明中包含<code>&lt;QDate&gt;</code>头文件。</p>
+<p>由于历史原因，<code>QMap</code>和<code>QList</code>作为属性类型与<code>QVariantMap</code>和<code>QVariantList</code>是等价的。</p>
+<h1 id="42">4.2 属性的读写</h1>
+<p>可以使用通用函数<code>QObject::property()</code>和<code>QObject::setProperty()</code>来读写属性，除了属性的名称外，不需要知道所属类的任何信息。在下面的代码片段中，对<code>QAbstractButton::setDown()</code>的调用和对<code>QObject::setProperty()</code>的调用都将属性设置为"down"。</p>
+<pre><code>QPushButton *button = new QPushButton;
+QObject *object = button;
+button-&gt;setDown(true);
+object-&gt;setProperty("down", true);
+</code></pre>
+<p>通过属性的<code>WRITE</code>访问器访问属性是两种方法中较好的一种，因为它在编译时更快并提供更好的诊断，但是以这种方式设置属性要求您在编译时了解该类。通过名称访问属性可以访问编译时不知道的类。您可以在运行时通过查询类的<code>QObject</code>、<code>QMetaObject</code>和<code>QMetaProperties</code>来发现类的属性。</p>
+<pre><code>QObject *object = ...
+const QMetaObject *metaobject = object-&gt;metaObject();
+int count = metaobject-&gt;propertyCount();
+for (int i = 0; i &lt; count; ++i) {
+    QMetaProperty metaproperty = metaobject-&gt;property(i);
+    const char *name = metaproperty.name();
+    QVariant value = object-&gt;property(name);
+    ...
+}
+</code></pre>
+<p>在以上代码段中，<code>QMetaObject::property()</code>用于获取有关某个未知类中定义的每个属性的元数据。从元数据中获取属性名称，并将其传递给<code>QObject::property()</code>以获取当前对象中属性的值。</p>
+<h1 id="43">4.3 示例</h1>
+<p>假设我们有一个类<code>MyClass</code>，它派生自<code>QObject</code>，并在其私有部分中使用<code>Q_OBJECT</code>宏。我们想要在<code>MyClass</code>中声明一个属性以跟踪<code>priority</code>值。该属性的名称是<code>priority</code>，其类型为枚举类型<code>Priority</code>，该枚举类型在<code>MyClass</code>中定义。</p>
+<p>我们在类的私有部分使用<code>Q_PROPERTY()</code>宏声明该属性。<code>READ</code>函数名为<code>priority</code>，<code>WRITE</code>函数名为<code>setPriority</code>。</p>
+<p>枚举类型必须使用<code>Q_ENUM()</code>宏向元对象系统注册。该宏向元对象系统中注册一个枚举类型。这将启用有用的功能，例如，如果在<code>QVariant</code>中使用，您可以将它们转换为字符串。同样，将它们传递给<code>QDebug</code>将打印出其名称。它必须放在具有<code>Q_OBJECT</code>或<code>Q_GADGET</code>宏的类中的枚举声明之后。</p>
+<p>注册枚举类型使枚举名称可以在<code>QObject::setProperty()</code>调用中使用。我们还必须为<code>READ</code>和<code>WRITE</code>函数提供我们自己的声明。</p>
+<pre><code>class MyClass : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(Priority priority READ priority WRITE setPriority NOTIFY priorityChanged)
+
+public:
+    MyClass(QObject *parent = 0);
+    ~MyClass();
+
+    enum Priority { High, Low, VeryHigh, VeryLow };
+    Q_ENUM(Priority)
+
+    void setPriority(Priority priority);
+    Priority priority() const;
+
+    signals:
+        void priorityChanged(Priority);
+
+    private:
+        Priority m_priority;
+};
+</code></pre>
+<p>给定一个指向<code>MyClass</code>实例的指针或指向一个<code>MyClass</code>实例的<code>QObject</code>的指针，我们有两种方法来设置它的<code>priority</code>属性：</p>
+<pre><code>MyClass *myinstance = new MyClass;
+QObject *object = myinstance;
+
+myinstance-&gt;setPriority(MyClass::VeryHigh);
+object-&gt;setProperty("priority", "VeryHigh");
+</code></pre>
+<p>在本例中，作为属性类型的枚举类型在<code>MyClass</code>中声明，并使用<code>Q_ENUM()</code>宏向元对象系统注册。这使得枚举值可以作为字符串使用，就像在<code>setProperty()</code>调用中一样。如果在另一个类中声明了枚举类型，则将需要使用其完全限定的名称（即<code>OtherClass::Priority</code>），而其他类也必须继承<code>QObject</code>并使用<code>Q_ENUM()</code>宏在那里注册枚举类型。</p>
+<p>还有一个类似的宏<code>Q_FLAG()</code>。与<code>Q_ENUM()</code>类似，它注册了一个枚举类型，但它将该类型标记为一组标志，即可以进行“或”运算。一个I/O类可能有枚举值<code>Read</code>和<code>Write</code>，然后<code>QObject::setProperty()</code>可以接收<code>Read|Write</code>。应该使用<code>Q_FLAG()</code>来注册此枚举类型。</p>
+<h1 id="44">4.4 动态属性</h1>
+<p>还可以使用<code>QObject::setProperty()</code>在运行时向类的实例添加新属性。当使用名称和值调用它时，如果<code>QObject</code>中存在具有给定名称的属性，并且给定值与属性的类型兼容，则将该值存储在属性中，并返回<code>true</code>。如果该值与属性的类型不兼容，则不会更改该属性，并返回<code>false</code>。但是，如果具有给定名称的属性在<code>QObject</code>中不存在(即如果它没有使用<code>Q_PROPERTY()</code>声明)，一个具有给定名称和值的新属性将自动添加到<code>QObject</code>中，但仍然返回<code>false</code>。这意味着不能使用<code>false</code>的返回值来确定是否实际设置了某个特定的属性，除非您预先知道该属性已经存在于<code>QObject</code>中。</p>
+<p>请注意，动态属性是按实例添加的，也就是说它们被添加到<code>QObject</code>，而不是<code>QMetaObject</code>。通过将属性名和无效的<code>QVariant</code>值传递给<code>QObject::setProperty()</code>，可以从实例中删除属性。<code>QVariant</code>的默认构造函数构造了一个无效的<code>QVariant</code>。</p>
+<p>可以使用<code>QObject::property()</code>查询动态属性，就像在编译时使用<code>Q_PROPERTY()</code>声明的属性一样。</p>
+<h1 id="45">4.5 属性和自定义类型</h1>
+<p>属性使用的自定义值类型需要使用<code>Q_DECLARE_METATYPE()</code>宏注册，以便它们的值可以存储在<code>QVariant</code>对象中。这使得它们既适用于在类定义中使用<code>Q_PROPERTY()</code>宏声明的静态属性，也适用于在运行时创建的动态属性。</p>
+<p>通过将<code>Q_DECLARE_METATYPE()</code>宏放在自定义类的头文件中来完成声明。例如：</p>
+<pre><code>#include &lt;QMetaType&gt;
+
+class YourCustomClass
+{
+public:
+    YourCustomClass();
+};
+
+Q_DECLARE_METATYPE(YourCustomClass)
+</code></pre>
+<h1 id="46">4.6 向类添加其他信息</h1>
+<p>连接到属性系统的是一个附加的宏<code>Q_CLASSINFO()</code>，它可以用来给类的元对象附加额外的键值对，例如:</p>
+<p><code>Q_CLASSINFO("Version", "3.0.0")</code></p>
+<p>像其他元数据一样，类信息可以在运行时通过元对象访问，详细信息请参见<code>QMetaObject::classInfo()</code>。</p>
+<p>在本练习中，您将熟悉访问QObject的属性。您可以在<code>reflection.cpp</code>中找到相关说明。</p>
+<p>提示：<code>QVariant</code>将很有用。</p>
+<p>这个练习有点麻烦。您将创建一个自定义类<code>Student</code>，并实现<code>StudentRegistry</code>的功能。您可以在<code>studentregistry.cpp</code>中找到相关规定。</p>
+<p><a href="https://materiaalit.github.io/qt-mooc/part2/">Source</a></p>
+<h1 id="_1">更多资料，请关注本人公众号：<strong>程序员练兵场</strong></h1>
+<p><img alt="在这里插入图片描述" src="../img/%E5%85%AC%E4%BC%97%E5%8F%B7.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Qt_MOOC_Part_1_3/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                1.3 容器
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Qt_MOOC_Part_2_2/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                2.2 对象通信：信号和槽
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

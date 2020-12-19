@@ -1,0 +1,708 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+    
+    
+      
+        <title>3.1 QML介绍 - Qt系列教程</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#qml" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Qt系列教程" class="md-header-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Qt系列教程
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              3.1 QML介绍
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Qt系列教程" class="md-nav__button md-logo" aria-label="Qt系列教程">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Qt系列教程
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Introduce/" class="md-nav__link">
+      课程介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_1/" class="md-nav__link">
+      1.1 创建和调试Qt项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_2/" class="md-nav__link">
+      1.2 字符串处理和值类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_1_3/" class="md-nav__link">
+      1.3 容器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_1/" class="md-nav__link">
+      2.1 值对象与QObject
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_2/" class="md-nav__link">
+      2.2 对象通信：信号和槽
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_3/" class="md-nav__link">
+      2.3 多任务处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_2_4/" class="md-nav__link">
+      2.4 父子关系
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      3.1 QML介绍
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_2/" class="md-nav__link">
+      3.2 QML类型和属性
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_3/" class="md-nav__link">
+      3.3 QML基本类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_4/" class="md-nav__link">
+      3.4 文本输入与按键处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_5/" class="md-nav__link">
+      3.5 鼠标处理
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_6/" class="md-nav__link">
+      3.6 输入处理器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_7/" class="md-nav__link">
+      3.7 定位器
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_8/" class="md-nav__link">
+      3.8 锚定布局
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_9/" class="md-nav__link">
+      3.9 Qt Quick Controls
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_10/" class="md-nav__link">
+      3.10 自定义组件
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_3_11/" class="md-nav__link">
+      3.11 视觉效果
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_1/" class="md-nav__link">
+      4.1 模型视图框架
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_2/" class="md-nav__link">
+      4.2 QML模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_3/" class="md-nav__link">
+      4.3 视图
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_4_4/" class="md-nav__link">
+      4.4 委托
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_1/" class="md-nav__link">
+      5.1 QML上下文属性和对象
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_2/" class="md-nav__link">
+      5.2 从QML访问C++
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_3/" class="md-nav__link">
+      5.3 创建新的QML类型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_4/" class="md-nav__link">
+      5.4 QML中的C++模型
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_5/" class="md-nav__link">
+      5.5 场景图项目
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Qt_MOOC_Part_5_6/" class="md-nav__link">
+      5.6 QML分析器
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="qml"><center>QML介绍<center></h1>
+<p>我们在前面两章主要介绍了Qt基本模块，它几乎可以用于任何Qt应用程序中，无论该应用程序多么简单或复杂。我们讨论了应用程序逻辑，实现应用程序行为的引擎。然而除了逻辑之外，我们通常还需要创建一个用户界面来与引擎交互，最好是具有一个酷炫且现代化的用户界面。</p>
+<p>在第三章，我们将讨论使用Qt Quick创建用户界面。我们将使用的编程语言是声明式脚本语言QML，它扩展了JavaScript。虽然可以用JavaScript实现应用程序逻辑，但首选的方法是使用QML和JavaScript来声明UI组件、布局和动画，使用C++来实现应用程序逻辑。这是因为使用JavaScript实现的逻辑的性能几乎总是比C++差。</p>
+<p>在第五章，我们将继续介绍用C++编写应用程序逻辑与QML交互的主题。而在本章，我们只讨论QML语言。</p>
+<p>Qt Creator中有一个图形化的UI设计工具Qt Quick Designer。课程中的UI文件可以通过直接编辑QML代码来实现，也可以使用Qt Quick Designer生成。Qt还提供了Qt Design Studio，主要提供给设计师使用。它允许UI设计师从Adobe Photoshop中导入图形资源，并进一步让软件工程师使用Qt Design Studio中生成的UI文件。然而，对于课程练习使用Qt Design Studio是有点太笨重了。</p>
+<h1 id="1-qt-quick">1. Qt Quick</h1>
+<p>Qt Quick是一个模块，包含了QML的所有基本类型和功能。它包括可视类型，交互类型，动画，模型和视图，粒子效果和着色器效果。QML应用程序开发人员可以通过导入相应的QML模块来访问这些功能。模块是插件，为QML引擎提供了类型。一个简单的模块可能只是一个由QML文本文件组成的文件夹。</p>
+<p>Qt Quick QML库由Qt Quick模块提供。有关Qt Quick提供的各种QML类型和其他功能的更多信息，请参考<a href="http://doc.qt.io/qt-5/qtquick-index.html" title="Qt Quick模块">Qt Quick模块</a>文档。</p>
+<p>在使用Qt Quick模块时，您需要知道如何使用QML语言编写QML应用程序。</p>
+<p>使用Qt Quick模块，设计人员和开发人员可以高效地处理同一产品，而无需长时间等待设计人员修改或等待开发人员实现某些UI特性。这会显著减少设计人员和开发人员之间的沟通时间，减少产品上市的周期。</p>
+<h1 id="2-qml">2. QML</h1>
+<p>QML（Qt Meta-Object Language）即Qt元对象语言（又称为Qt建模语言），它是一种用户界面标记语言。</p>
+<p>Qt QML模块提供了使用QML语言开发应用程序和库的框架。它定义并实现了语言和引擎基础架构，并提供了一些API，使应用程序开发人员能够使用自定义类型来扩展QML语言并将QML代码与JavaScript和C++集成在一起。Qt QML模块同时提供了QML API和C++ API。</p>
+<p>您应该使用C++处理应用程序逻辑。在大多数情况下，它会比使用JavaScript实现逻辑具有更好的性能。</p>
+<p><img alt="" src="https://materiaalit.github.io/qt-mooc/img/part-3/qt_quick_workflow-7d7f1af7.png" /></p>
+<p>QML是一种声明性语言，它允许根据可视化组件以及它们之间如何交互和关联来描述用户界面。它是一种高度可读的语言，旨在使组件以动态方式互连，并且允许在用户界面中轻松地重用和定制组件。使用Qt Quick模块，设计人员和开发人员可以轻松地在QML中创建流畅并具有动画功能的用户界面，并可以选择将这些用户界面连接到任何后端C++库。</p>
+<p>QML中的UI组件是用对象、对象属性和属性绑定声明的，可以设置它们来定义应用程序行为。我们可以像在Qt/C++中一样声明信号和槽的连接。应用程序的行为还可以通过编写JavaScript脚本来实现，JavaScript是该语言的一个子集。此外，QML里大量使用了Qt, Qt允许从QML应用程序直接访问它的类型和其他Qt特性。实际上，QML类型(也称为组件)中的每个JavaScript方法都是一个公共的槽，可以连接到任何一个信号。</p>
+<h1 id="3-qmlqml">3. .qml文件和QML语法</h1>
+<p>在QML中定义了多个对象，并使它们能够以一种语言描述它们的变化。与纯粹的命令式代码相比，QML的声明性语法将属性和行为的更改直接集成到单个对象的定义中，这种代码通过一系列逐步处理的语句来表示属性和行为的更改。在需要复杂的自定义应用程序行为的情况下，这些属性定义仍可以包括命令代码。</p>
+<p>QML源代码通常由引擎通过QML文件（.qml）加载，这些文件是QML代码的独立文件。它们可以用来定义QML的对象类型，然后在整个应用程序中重用。定义新类型的QML文件也称为组件。</p>
+<p>请注意，类型名称必须以大写字母开头，以便在QML文件中声明为QML对象类型。</p>
+<h2 id="31-qml">3.1 在项目中使用QML</h2>
+<p>要在项目中使用QML，您需要完成以下三个步骤：</p>
+<p>1.使用以下指令包含模块类的定义:</p>
+<pre><code>#include &lt;QtQml&gt;
+</code></pre>
+<p>2. Qt QML中的QML类型可以通过导入QtQML获得。要使用这些类型，请在.qml文件中添加以下导入语句:</p>
+<pre><code>import QtQml 2.0
+</code></pre>
+<p>3.要链接到模块，请在qmake .pro文件中添加这一行:</p>
+<pre><code>QT += qml
+</code></pre>
+<h2 id="32">3.2 导入</h2>
+<p>在QML文件中可能存在一个或多个导入。导入可以是以下任一项：</p>
+<ul>
+<li>已注册并具有版本号和命名空间的类型（如插件）</li>
+<li>一个包含类型定义的相对目录</li>
+<li>一个JavaScript文件</li>
+</ul>
+<p>导入JavaScript文件时必须对其进行限定，以便可以访问它们提供的属性和方法。</p>
+<p>各种导入的通用形式如下：</p>
+<pre><code>import Namespace VersionMajor.VersionMinor
+import Namespace VersionMajor.VersionMinor as SingletonTypeIdentifier
+import "directory"
+import "file.js" as ScriptIdentifier
+</code></pre>
+<p>例子：</p>
+<pre><code>import QtQuick 2.0
+import QtQuick.LocalStorage 2.0 as Database
+import "../privateComponents"
+import "somefile.js" as Script
+</code></pre>
+<h1 id="4-quick-uiqmlscene">4. 使用Quick UI工程和qmlscene进行原型设计</h1>
+<p>为了更快地创建用户界面原型，可以创建一个<a href="http://doc.qt.io/qtcreator/quick-projects.html" title="Qt Quick UI">Qt Quick UI</a>项目。这个项目不包含任何C++代码，资源文件<code>.qrc</code>或部署代码（<code>qmake</code>文件）。这样设计人员就可以在不编译任何代码的情况下启动应用程序，开发人员也可以快速共享概念验证。例如，在Qt Design Studio中，可以只创建Qt Quick UI项目。QML场景也可以在移动设备或嵌入式设备中远程执行，UI编辑器中的任何更改都将立即反映在UI中。Qt Quick Designer没有类似的功能。</p>
+<p>您还可以为原型应用程序<a href="https://doc.qt.io/qt-5/qtquick-qmlscene.html" title="qmlscene">qmlscene</a>启用键盘快捷方式，该快捷方式可呈现任意<code>.qml</code>文件。<code>qmlscene</code>可以通过在Qt Creator中启用<code>Options -&gt; Environment -&gt; Keyboard -&gt; search for qmlscene -&gt; assign shortcut</code>。当一个<code>.qml</code>文件是在编辑或设计模式下打开，按快捷方式呈现该文件。</p>
+<h1 id="5">5. 国际化</h1>
+<p>Qt Quick具有广泛的国际化和本地化支持。</p>
+<p>让我们来看看基本的流程:</p>
+<pre><code>Text {
+    id: txt1;
+    text: qsTr("Back");
+}
+</code></pre>
+<p>使用函数qsTr()在UI中声明可翻译字符串。这使得“Back”成为翻译文件中的一个关键条目。</p>
+<pre><code>Text {
+    id: txt1;
+    // This user interface string is used only here
+    //: The back of the object, not the front
+    //~ Context Not related to back-stepping
+    text: qsTr("Back", "not front");
+}
+</code></pre>
+<p>您可以使用<code>//:</code>和可选的<code>//~</code>开头的注释为翻译器添加上下文。前者是译者的主要评论，后者是可选的额外信息。</p>
+<p>有时候同一个词在不同的上下文中有不同的意思。通过向<code>qsTr()</code>添加第二个参数来区分它们，然后该参数在翻译文件中为单词提供惟一的id。</p>
+<pre><code>Text {
+    text: qsTr("File %1 of %2").arg(counter).arg(total)
+}
+</code></pre>
+<p>由于语言之间的句子结构各不相同，所以要避免连接单词和数据。相反，使用<code>%</code>将参数插入到字符串中。这样译者就可以改变参数在句子中的位置。</p>
+<p>您可以在指定参数时包括<code>L</code>修饰符，例如<code>%L1</code>，以便根据当前的区域设置本地化数字。例如，把数字1337.42格式化为美国的“1,337.42”和德语的“1.337,42”。</p>
+<p>有关国际化的更详细信息，请参阅<a href="https://doc.qt.io/qt-5/qtquick-internationalization.html" title="Qt Quick的国际化和本地化">Qt Quick的国际化和本地化</a>和<a href="https://doc.qt.io/qt-5/linguist-manager.html" title="Qt Linguist Manger">Qt Linguist Manger</a></p>
+<p><a href="https://materiaalit.github.io/qt-mooc/part3/">Source</a></p>
+<h1 id="_1">更多资料，请关注本人公众号：<strong>程序员练兵场</strong></h1>
+<p><img alt="在这里插入图片描述" src="../img/%E5%85%AC%E4%BC%97%E5%8F%B7.png" /></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Qt_MOOC_Part_2_4/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                2.4 父子关系
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../Qt_MOOC_Part_3_2/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                3.2 QML类型和属性
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
